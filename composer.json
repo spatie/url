@@ -16,19 +16,19 @@
         }
     ],
     "require": {
-        "php" : "^7.0"
+        "php": "^7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "5.*"
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src"
+            "Spatie\\Url\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Test\\": "tests"
+            "Spatie\\Url\\Test\\": "tests"
         }
     },
     "scripts": {
