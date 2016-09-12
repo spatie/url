@@ -2,8 +2,8 @@
 
 namespace Spatie\Url;
 
-use Exception;
 use Psr\Http\Message\UriInterface;
+use Spatie\Url\Exceptions\InvalidArgument;
 
 class Url implements UriInterface
 {
@@ -33,12 +33,17 @@ class Url implements UriInterface
 
     const VALID_SCHEMES = ['http', 'https'];
 
-    public static function fromString(string $url): Url
+    public static function create()
     {
-        $parts = parse_url($url);
+        return new static();
+    }
+
+    public static function fromString(string $url)
+    {
+        $parts = array_merge(parse_url($url));
 
         $url = new static();
-        $url->scheme = $parts['scheme'] ?? '';
+        $url->scheme = isset($parts['scheme']) ? $url->sanitizeScheme($parts['scheme']) : '';
         $url->host = $parts['host'] ?? '';
         $url->port = $parts['port'] ?? null;
         $url->user = $parts['user'] ?? '';
@@ -108,16 +113,21 @@ class Url implements UriInterface
 
     public function withScheme($scheme)
     {
-        $scheme = strtolower($scheme);
-
-        if (in_array($scheme, static::VALID_SCHEMES)) {
-            throw new Exception();
-        }
-
         $url = clone $this;
-        $url->scheme = $scheme;
+        $url->scheme = $this->sanitizeScheme($scheme);
 
         return $url;
+    }
+
+    protected function sanitizeScheme(string $scheme): string
+    {
+        $scheme = strtolower($scheme);
+
+        if (! in_array($scheme, static::VALID_SCHEMES)) {
+            throw InvalidArgument::invalidScheme($scheme);
+        }
+
+        return $scheme;
     }
 
     public function withUserInfo($user, $password = null)
