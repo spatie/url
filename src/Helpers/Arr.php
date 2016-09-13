@@ -10,7 +10,7 @@ class Arr
 
         $items = array_map($callback, $items, $keys);
 
-        return new static(array_combine($keys, $items));
+        return array_combine($keys, $items);
     }
 
     public static function mapToAssoc(array $items, callable $callback)

@@ -4,7 +4,7 @@ namespace Spatie\Url\Test;
 
 use Spatie\Url\QueryParameterBag;
 
-class QueryParameterBagTest
+class QueryParameterBagTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_can_get_a_parameter()
@@ -19,7 +19,7 @@ class QueryParameterBagTest
     {
         $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
-        $this->assertNull(10, $queryParameterBag->get('limit'));
+        $this->assertNull($queryParameterBag->get('limit'));
     }
 
     /** @test */
@@ -37,7 +37,7 @@ class QueryParameterBagTest
 
         $queryParameterBag->set('offset', 10);
 
-        $this->assertNull(10, $queryParameterBag->get('offset'));
+        $this->assertEquals(10, $queryParameterBag->get('offset'));
     }
 
     /** @test */
@@ -57,5 +57,22 @@ class QueryParameterBagTest
         $queryParameterBag->unset('offset');
 
         $this->assertFalse($queryParameterBag->has('offset'));
+    }
+
+    /** @test */
+    public function it_can_be_created_from_a_string()
+    {
+        $queryParameterBag = QueryParameterBag::fromString('offset=10&limit=20');
+
+        $this->assertEquals(10, $queryParameterBag->get('offset'));
+        $this->assertEquals(20, $queryParameterBag->get('limit'));
+    }
+
+    /** @test */
+    public function it_can_be_casted_to_a_string()
+    {
+        $queryParameterBag = QueryParameterBag::fromString('offset=10&limit=20');
+
+        $this->assertEquals('offset=10&limit=20', $queryParameterBag->__toString());
     }
 }
