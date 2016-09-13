@@ -158,11 +158,7 @@ class Url implements UriInterface
     public function withPath($path)
     {
         $url = clone $this;
-
-        $path = $this->parsePath($path);
-
-        $url->basename = $path['basename'];
-        $url->dirname = $path['dirname'];
+        $url->path = $path;
 
         return $url;
     }
