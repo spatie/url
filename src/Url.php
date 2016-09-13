@@ -149,6 +149,16 @@ class Url implements UriInterface
         return $this->fragment;
     }
 
+    public function getSegments(): array
+    {
+        return explode('/', trim($this->path, '/'));
+    }
+
+    public function getSegment(int $index, $default = null)
+    {
+        return $this->getSegments()[$index - 1] ?? $default;
+    }
+
     public function withScheme($scheme)
     {
         $url = clone $this;
@@ -196,6 +206,11 @@ class Url implements UriInterface
     public function withPath($path)
     {
         $url = clone $this;
+
+        if (strpos($path, '/') !== 0) {
+            $path = '/'.$path;
+        }
+
         $url->path = $path;
 
         return $url;

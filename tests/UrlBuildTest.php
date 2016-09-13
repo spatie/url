@@ -75,6 +75,16 @@ class UrlBuildTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_prefixes_paths_with_a_slash_if_its_not_present()
+    {
+        $url = Url::create()
+            ->withHost('spatie.be')
+            ->withPath('opensource');
+
+        $this->assertEquals('/opensource', $url->getPath());
+    }
+
+    /** @test */
     public function it_can_build_a_url_with_a_query()
     {
         $url = Url::create()
