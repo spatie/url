@@ -9,13 +9,17 @@ class QueryParameterBag
     /** @var array */
     protected $parameters;
 
-    public function __construct(array $parameters)
+    public function __construct(array $parameters = [])
     {
         $this->parameters = $parameters;
     }
 
     public static function fromString(string $query = ''): QueryParameterBag
     {
+        if ($query === '') {
+            return new static();
+        }
+
         return new static(Arr::mapToAssoc(explode('&', $query), function (string $keyValue) {
             return explode('=', $keyValue, 2);
         }));
@@ -39,6 +43,11 @@ class QueryParameterBag
     public function unset(string $key)
     {
         unset($this->parameters[$key]);
+    }
+
+    public function all(): array
+    {
+        return $this->parameters;
     }
 
     public function __toString()

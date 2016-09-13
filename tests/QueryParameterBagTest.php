@@ -31,6 +31,14 @@ class QueryParameterBagTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_return_all_parameters()
+    {
+        $queryParameterBag = new QueryParameterBag(['offset' => 10]);
+
+        $this->assertEquals(['offset' => 10], $queryParameterBag->all());
+    }
+
+    /** @test */
     public function it_can_set_a_parameter()
     {
         $queryParameterBag = new QueryParameterBag([]);
@@ -50,7 +58,7 @@ class QueryParameterBagTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function if_can_unset_a_parameter()
+    public function it_can_unset_a_parameter()
     {
         $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
@@ -66,6 +74,14 @@ class QueryParameterBagTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(10, $queryParameterBag->get('offset'));
         $this->assertEquals(20, $queryParameterBag->get('limit'));
+    }
+
+    /** @test */
+    public function it_can_be_created_from_an_empty_string()
+    {
+        $queryParameterBag = QueryParameterBag::fromString('');
+
+        $this->assertEquals([], $queryParameterBag->all());
     }
 
     /** @test */

@@ -25,13 +25,18 @@ class Url implements UriInterface
     /** @var string */
     protected $path = '';
 
-    /** @var string */
-    protected $query = '';
+    /** @var \Spatie\Url\QueryParameterBag */
+    protected $query;
 
     /** @var string */
     protected $fragment = '';
 
     const VALID_SCHEMES = ['http', 'https'];
+
+    public function __construct()
+    {
+        $this->query = new QueryParameterBag();
+    }
 
     public static function create()
     {
@@ -49,7 +54,7 @@ class Url implements UriInterface
         $url->user = $parts['user'] ?? '';
         $url->password = $parts['pass'] ?? null;
         $url->path = $parts['path'] ?? '';
-        $url->query = $parts['query'] ?? '';
+        $url->query = QueryParameterBag::fromString($parts['query'] ?? '');
         $url->fragment = $parts['fragment'] ?? '';
 
         return $url;
@@ -103,22 +108,40 @@ class Url implements UriInterface
 
     public function getQuery(): string
     {
-        return $this->query;
+        return $this->query->__toString();
     }
 
-    public function getQueryParamenter(string $key): string
+    public function getQueryParameter(string $key, $default = null)
     {
-
+        return $this->query->get($key, $default);
     }
 
-    public function unsetQueryParameter(string $key): string
+    public function hasQueryParameter(string $key): bool
     {
-
+        return $this->query->has($key);
     }
 
-    public function setQueryParameter(string $key, string $value): string
+    public function getAllQueryParameters(): array
     {
+        return $this->query->all();
+    }
 
+    public function withQueryParameter(string $key, string $value)
+    {
+        $url = clone $this;
+        $url->query->unset($key);
+
+        $url->query->set($key, $value);
+
+        return $url;
+    }
+
+    public function withoutQueryParameter(string $key)
+    {
+        $url = clone $this;
+        $url->query->unset($key);
+
+        return $url;
     }
 
     public function getFragment()
@@ -181,7 +204,7 @@ class Url implements UriInterface
     public function withQuery($query)
     {
         $url = clone $this;
-        $url->query = $query;
+        $url->query = QueryParameterBag::fromString($query);
 
         return $url;
     }
@@ -221,5 +244,10 @@ class Url implements UriInterface
         }
 
         return $url;
+    }
+
+    public function __clone()
+    {
+        $this->query = clone $this->query;
     }
 }

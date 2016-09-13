@@ -73,6 +73,28 @@ class UrlImmutableTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function with_query_parameter_returns_a_new_instance()
+    {
+        $url = Url::fromString('https://spatie.be');
+
+        $clone = $url->withQueryParameter('utm_source', 'phpunit');
+
+        $this->assertEquals('', $url->getQuery());
+        $this->assertEquals('utm_source=phpunit', $clone->getQuery());
+    }
+
+    /** @test */
+    public function withput_query_parameter_returns_a_new_instance()
+    {
+        $url = Url::fromString('https://spatie.be')->withQueryParameter('utm_source', 'phpunit');
+
+        $clone = $url->withoutQueryParameter('utm_source');
+
+        $this->assertEquals('utm_source=phpunit', $url->getQuery());
+        $this->assertEquals('', $clone->getQuery());
+    }
+
+    /** @test */
     public function with_fragment_returns_a_new_instance()
     {
         $url = Url::fromString('https://spatie.be');
