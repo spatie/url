@@ -47,7 +47,7 @@ class Url implements UriInterface
         $url->host = $parts['host'] ?? '';
         $url->port = $parts['port'] ?? null;
         $url->user = $parts['user'] ?? '';
-        $url->password = $parts['password'] ?? null;
+        $url->password = $parts['pass'] ?? null;
         $url->path = $parts['path'] ?? '';
         $url->query = $parts['query'] ?? '';
         $url->fragment = $parts['fragment'] ?? '';
