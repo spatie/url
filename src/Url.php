@@ -106,6 +106,21 @@ class Url implements UriInterface
         return $this->query;
     }
 
+    public function getQueryParamenter(string $key): string
+    {
+
+    }
+
+    public function unsetQueryParameter(string $key): string
+    {
+
+    }
+
+    public function setQueryParameter(string $key, string $value): string
+    {
+
+    }
+
     public function getFragment()
     {
         return $this->fragment;
