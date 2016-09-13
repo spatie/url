@@ -1,4 +1,4 @@
-# Very short description of the package
+# Parse, build and manipulate URL's
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -7,7 +7,53 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/url.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/url)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+A simple package to deal with URL's in your applications.
+
+Retrieve parts of the URL:
+
+```php
+$url = Url::fromString('https://spatie.be/opensource');
+
+echo $url->getScheme(); // 'https'
+echo $url->getHost(); // 'spatie.be'
+echo $url->getPath(); // '/opensource'
+```
+
+Transform any part of the URL (the `Url` class is immutable):
+
+```php
+$url = Url::fromString('https://spatie.be/opensource');
+
+echo $url->withHost('github.com')->withPath('spatie');
+// 'https://github.com/spatie'
+```
+
+Retrieve and transform query parameters:
+
+```php
+$url = Url::fromString('https://spatie.be/opensource?utm_source=github&utm_campaign=pacakges');
+
+echo $url->getQuery(); // 'utm_source=github&utm_campaign=pacakges'
+echo $url->getQueryParameter('utm_source'); // 'github'
+echo $url->withoutQueryParameter('utm_campaign'); // 'https://spatie.be/opensource?utm_source=github'
+```
+
+Retrieve path segments:
+
+```php
+$url = Url::fromString('https://spatie.be/opensource/laravel');
+
+echo $url->getSegment(1); // 'opensource'
+echo $url->getSegment(2); // 'laravel'
+```
+
+Implements PSR-7's `UriInterface` interface:
+
+```php
+class Url implements UriInterface { /* ... */ }
+```
+
+The [`league/uri`](https://github.com/thephpleague/uri) is a more powerful package than this one. The main reason this package exists, is because the the alternative requires non-standard php extensions. If you're dealing with special character encodings or need bulletproof validation, you're definitely better off using `league/uri`.
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
@@ -20,13 +66,6 @@ Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
 The best postcards will get published on the open source page on our website.
 
 ## Installation
-
-**Note:** Remove this paragraph if you are building a public package  
-This package is custom built for [Spatie](https://spatie.be) projects and is therefore not registered on packagist. In order to install it via composer you must specify this extra repository in `composer.json`:
-
-```json
-"repositories": [ { "type": "composer", "url": "https://satis.spatie.be/" } ]
-```
 
 You can install the package via composer:
 
