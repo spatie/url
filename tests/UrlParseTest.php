@@ -57,6 +57,30 @@ class UrlParseTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_parse_a_basename()
+    {
+        $url = Url::fromString('https://spatie.be/opensource/laravel');
+
+        $this->assertEquals('laravel', $url->getBasename());
+    }
+
+    /** @test */
+    public function it_can_parse_a_dirname()
+    {
+        $url = Url::fromString('https://spatie.be/opensource/laravel');
+
+        $this->assertEquals('/opensource', $url->getDirname());
+    }
+
+    /** @test */
+    public function it_can_parse_a_dirname_if_the_dir_is_the_root()
+    {
+        $url = Url::fromString('https://spatie.be/opensource');
+
+        $this->assertEquals('/', $url->getDirname());
+    }
+
+    /** @test */
     public function it_can_parse_a_relative_url()
     {
         $url = Url::fromString('/opensource');

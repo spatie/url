@@ -2,6 +2,7 @@
 
 namespace Spatie\Url\Test;
 
+use Spatie\Url\Exceptions\InvalidArgument;
 use Spatie\Url\Url;
 
 class UrlSegmentTest extends \PHPUnit_Framework_TestCase
@@ -37,5 +38,21 @@ class UrlSegmentTest extends \PHPUnit_Framework_TestCase
         $url = Url::create()->withPath('opensource/php');
 
         $this->assertEquals('nothing', $url->getSegment(3, 'nothing'));
+    }
+
+    /** @test */
+    public function it_throws_an_exception_if_segment_0_gets_queried()
+    {
+        $this->expectException(InvalidArgument::class);
+
+        Url::create()->withPath('opensource/php')->getSegment(0);
+    }
+
+    /** @test */
+    public function it_can_return_a_path_segment_counting_from_behind()
+    {
+        $url = Url::create()->withPath('opensource/php');
+
+        $this->assertEquals('php', $url->getSegment(-1));
     }
 }

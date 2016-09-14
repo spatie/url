@@ -85,6 +85,27 @@ class UrlBuildTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_build_a_url_with_a_dirname()
+    {
+        $url = Url::create()
+            ->withHost('spatie.be')
+            ->withDirname('opensource');
+
+        $this->assertEquals('//spatie.be/opensource', $url->__toString());
+    }
+
+    /** @test */
+    public function it_can_build_a_url_with_a_basename()
+    {
+        $url = Url::create()
+            ->withHost('spatie.be')
+            ->withPath('/opensource/php')
+            ->withBasename('laravel');
+
+        $this->assertEquals('//spatie.be/opensource/laravel', $url->__toString());
+    }
+
+    /** @test */
     public function it_can_build_a_url_with_a_query()
     {
         $url = Url::create()

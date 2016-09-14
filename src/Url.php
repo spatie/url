@@ -106,6 +106,20 @@ class Url implements UriInterface
         return $this->path;
     }
 
+    public function getBasename(): string
+    {
+        return $this->getSegment(-1);
+    }
+
+    public function getDirname(): string
+    {
+        $segments = $this->getSegments();
+
+        array_pop($segments);
+
+        return '/'.implode('/', $segments);
+    }
+
     public function getQuery(): string
     {
         return $this->query->__toString();
@@ -156,7 +170,18 @@ class Url implements UriInterface
 
     public function getSegment(int $index, $default = null)
     {
-        return $this->getSegments()[$index - 1] ?? $default;
+        $segments = $this->getSegments();
+
+        if ($index === 0) {
+            throw new InvalidArgument("Segment 0 doesn't exist. Segments can be retrieved by using 1-based index or a negative index.");
+        }
+
+        if ($index < 0) {
+            $segments = array_reverse($segments);
+            $index = abs($index);
+        }
+
+        return $segments[$index - 1] ?? $default;
     }
 
     public function withScheme($scheme)
@@ -214,6 +239,28 @@ class Url implements UriInterface
         $url->path = $path;
 
         return $url;
+    }
+
+    public function withDirname(string $dirname)
+    {
+        $dirname = trim($dirname, '/');
+
+        if (! $this->getBasename()) {
+            return $this->withPath($dirname);
+        }
+
+        return $this->withPath($dirname.'/'.$this->getBasename());
+    }
+
+    public function withBasename(string $basename)
+    {
+        $basename = trim($basename, '/');
+
+        if ($this->getDirname() === '/') {
+            return $this->withPath('/'.$basename);
+        }
+
+        return $this->withPath($this->getDirname().'/'.$basename);
     }
 
     public function withQuery($query)
