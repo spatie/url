@@ -5,6 +5,7 @@
 [![Build Status](https://img.shields.io/travis/spatie/url/master.svg?style=flat-square)](https://travis-ci.org/spatie/url)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/xxxxxxxxx.svg?style=flat-square)](https://insight.sensiolabs.com/projects/xxxxxxxxx)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/url.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/url)
+[![StyleCI](https://styleci.io/repos/67992655/shield)](https://styleci.io/repos/67992655)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 
 A simple package to deal with URL's in your applications.
