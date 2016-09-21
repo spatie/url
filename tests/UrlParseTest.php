@@ -53,7 +53,7 @@ class UrlParseTest extends \PHPUnit_Framework_TestCase
     {
         $url = Url::fromString('https://spatie.be');
 
-        $this->assertEquals('', $url->getPath());
+        $this->assertEquals('/', $url->getPath());
     }
 
     /** @test */

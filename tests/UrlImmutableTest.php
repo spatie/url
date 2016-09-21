@@ -57,7 +57,7 @@ class UrlImmutableTest extends \PHPUnit_Framework_TestCase
 
         $clone = $url->withPath('/opensource');
 
-        $this->assertEquals('', $url->getPath());
+        $this->assertEquals('/', $url->getPath());
         $this->assertEquals('/opensource', $clone->getPath());
     }
 

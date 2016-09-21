@@ -53,7 +53,7 @@ class Url implements UriInterface
         $url->port = $parts['port'] ?? null;
         $url->user = $parts['user'] ?? '';
         $url->password = $parts['pass'] ?? null;
-        $url->path = $parts['path'] ?? '';
+        $url->path = $parts['path'] ?? '/';
         $url->query = QueryParameterBag::fromString($parts['query'] ?? '');
         $url->fragment = $parts['fragment'] ?? '';
 
@@ -277,6 +277,11 @@ class Url implements UriInterface
         $url->fragment = $fragment;
 
         return $url;
+    }
+
+    public function matches(Url $url): bool
+    {
+        return $this->__toString() === $url->__toString();
     }
 
     public function __toString()
