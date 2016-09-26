@@ -1,6 +1,6 @@
 {
     "name": "spatie/url",
-    "description": ":package_description",
+    "description": "Parse, build and manipulate URL's",
     "keywords": [
         "spatie",
         "url"
