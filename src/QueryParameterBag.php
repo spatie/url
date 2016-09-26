@@ -38,11 +38,15 @@ class QueryParameterBag
     public function set(string $key, string $value)
     {
         $this->parameters[$key] = $value;
+
+        return $this;
     }
 
     public function unset(string $key)
     {
         unset($this->parameters[$key]);
+
+        return $this;
     }
 
     public function all(): array

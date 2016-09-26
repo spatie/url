@@ -73,7 +73,7 @@ class Url implements UriInterface
             $authority = $this->getUserInfo().'@'.$authority;
         }
 
-        if ($this->port) {
+        if ($this->port !== null) {
             $authority .= ':'.$this->port;
         }
 
@@ -173,7 +173,7 @@ class Url implements UriInterface
         $segments = $this->getSegments();
 
         if ($index === 0) {
-            throw new InvalidArgument("Segment 0 doesn't exist. Segments can be retrieved by using 1-based index or a negative index.");
+            throw InvalidArgument::segmentZeroDoesNotExist();
         }
 
         if ($index < 0) {
@@ -187,6 +187,7 @@ class Url implements UriInterface
     public function withScheme($scheme)
     {
         $url = clone $this;
+
         $url->scheme = $this->sanitizeScheme($scheme);
 
         return $url;
@@ -206,6 +207,7 @@ class Url implements UriInterface
     public function withUserInfo($user, $password = null)
     {
         $url = clone $this;
+
         $url->user = $user;
         $url->password = $password;
 
@@ -215,6 +217,7 @@ class Url implements UriInterface
     public function withHost($host)
     {
         $url = clone $this;
+
         $url->host = $host;
 
         return $url;
@@ -223,6 +226,7 @@ class Url implements UriInterface
     public function withPort($port)
     {
         $url = clone $this;
+
         $url->port = $port;
 
         return $url;
@@ -266,6 +270,7 @@ class Url implements UriInterface
     public function withQuery($query)
     {
         $url = clone $this;
+
         $url->query = QueryParameterBag::fromString($query);
 
         return $url;
@@ -274,6 +279,7 @@ class Url implements UriInterface
     public function withFragment($fragment)
     {
         $url = clone $this;
+
         $url->fragment = $fragment;
 
         return $url;
