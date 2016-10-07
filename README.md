@@ -76,7 +76,7 @@ composer require spatie/url
 
 ## Usage
 
-There are some code examples at the top of this readme.
+Usage is pretty straightforward. Check out the code examples at the top of this readme.
 
 ## Changelog
 
