@@ -26,6 +26,14 @@ class UrlBuildTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_convert_itself_back_to_a_string()
+    {
+        $url = Url::fromString('https://spatie.be/');
+
+        $this->assertEquals('https://spatie.be', $url->__toString());
+    }
+
+    /** @test */
     public function it_throws_an_exception_when_providing_an_invalid_url_scheme()
     {
         $this->expectException(InvalidArgument::class);

@@ -316,7 +316,7 @@ class Url implements UriInterface
             $url .= '#'.$this->getFragment();
         }
 
-        return $url;
+        return rtrim($url, '/');
     }
 
     public function __clone()
