@@ -306,7 +306,7 @@ class Url implements UriInterface
             $url .= $this->getAuthority();
         }
 
-        $url .= $this->getPath();
+        $url .= rtrim($this->getPath(), '/');
 
         if ($this->getQuery() !== '') {
             $url .= '?'.$this->getQuery();
@@ -316,7 +316,7 @@ class Url implements UriInterface
             $url .= '#'.$this->getFragment();
         }
 
-        return rtrim($url, '/');
+        return $url;
     }
 
     public function __clone()

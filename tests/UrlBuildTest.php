@@ -150,4 +150,15 @@ class UrlBuildTest extends \PHPUnit_Framework_TestCase
             $url->__toString()
         );
     }
+
+    /** @test */
+    public function it_prefixes_the_path_if_the_url_has_an_authority_but_is_rootless()
+    {
+        $url = Url::create()
+            ->withUserInfo('sebastian', 'supersecret')
+            ->withPort(9000)
+            ->withPath('opensource');
+
+        $this->assertEquals('//sebastian:supersecret@:9000/opensource', $url->__toString());
+    }
 }
