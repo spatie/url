@@ -2,8 +2,8 @@
 
 namespace Spatie\Url\Test;
 
-use Spatie\Url\Exceptions\InvalidArgument;
 use Spatie\Url\Url;
+use Spatie\Url\Exceptions\InvalidArgument;
 
 class UrlSegmentTest extends \PHPUnit_Framework_TestCase
 {
