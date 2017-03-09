@@ -197,7 +197,7 @@ class Url implements UriInterface
     {
         $scheme = strtolower($scheme);
 
-        if (! in_array($scheme, static::VALID_SCHEMES)) {
+        if (!in_array($scheme, static::VALID_SCHEMES)) {
             throw InvalidArgument::invalidScheme($scheme);
         }
 
@@ -249,7 +249,7 @@ class Url implements UriInterface
     {
         $dirname = trim($dirname, '/');
 
-        if (! $this->getBasename()) {
+        if (!$this->getBasename()) {
             return $this->withPath($dirname);
         }
 
