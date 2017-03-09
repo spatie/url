@@ -15,6 +15,15 @@ class UrlQueryParametersTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_get_an_empty_query_parameter()
+    {
+        $url = Url::create()->withQuery('offset=10&a');
+
+        $this->assertEquals('', $url->getQueryParameter('a'));
+        $this->assertEquals(10, $url->getQueryParameter('offset'));
+    }
+
+    /** @test */
     public function it_returns_null_if_a_query_parameter_doesnt_exist()
     {
         $url = Url::create()->withQuery('offset=10');

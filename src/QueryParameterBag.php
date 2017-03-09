@@ -21,6 +21,10 @@ class QueryParameterBag
         }
 
         return new static(Arr::mapToAssoc(explode('&', $query), function (string $keyValue) {
+            if (mb_strpos($keyValue, '=') === false) {
+                $keyValue .= '=';
+            }
+
             return explode('=', $keyValue, 2);
         }));
     }
