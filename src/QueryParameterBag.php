@@ -21,7 +21,9 @@ class QueryParameterBag
         }
 
         return new static(Arr::mapToAssoc(explode('&', $query), function (string $keyValue) {
-            return explode('=', $keyValue, 2);
+            $parts = explode('=', $keyValue, 2);
+
+            return count($parts) === 2 ? $parts : [$parts[0], null];
         }));
     }
 

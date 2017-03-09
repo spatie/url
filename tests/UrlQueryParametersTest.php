@@ -64,4 +64,20 @@ class UrlQueryParametersTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($url->hasQueryParameter('offset'));
     }
+
+    /** @test */
+    public function it_can_handle_empty_query_parameters()
+    {
+        $url = Url::create()->withQuery('offset');
+
+        $this->assertTrue($url->hasQueryParameter('offset'));
+    }
+
+    /** @test */
+    public function empty_query_parameters_default_to_null()
+    {
+        $url = Url::create()->withQuery('offset');
+
+        $this->assertNull($url->getQueryParameter('offset'));
+    }
 }
