@@ -16,6 +16,22 @@ class UrlSegmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_return_the_last_path_segment()
+    {
+        $url = Url::create()->withPath('opensource/php');
+
+        $this->assertEquals('php', $url->getLastSegment());
+    }
+
+    /** @test */
+    public function it_can_return_the_first_path_segment()
+    {
+        $url = Url::create()->withPath('opensource/php');
+
+        $this->assertEquals('opensource', $url->getFirstSegment());
+    }
+
+    /** @test */
     public function it_can_return_a_path_segment()
     {
         $url = Url::create()->withPath('opensource/php');

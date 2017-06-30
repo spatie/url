@@ -184,6 +184,20 @@ class Url implements UriInterface
         return $segments[$index - 1] ?? $default;
     }
 
+    public function getFirstSegment()
+    {
+        $segments = $this->getSegments();
+
+        return $segments[0] ?? null;
+    }
+
+    public function getLastSegment()
+    {
+        $segments = $this->getSegments();
+
+        return end($segments) ?? null;
+    }
+
     public function withScheme($scheme)
     {
         $url = clone $this;
