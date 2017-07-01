@@ -2,6 +2,9 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 1.1.0 - 2017-07-01
+- Added: `getFirstSegment` and `getLastSegment`
+
 ## 1.0.2 - 2017-03-09
 - Fixed: allow valuesless query parameters, e.g. `?foo=bar&baz`
 
