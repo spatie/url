@@ -3,10 +3,13 @@
 namespace Spatie\Url;
 
 use Psr\Http\Message\UriInterface;
+use Spatie\Macroable\Macroable;
 use Spatie\Url\Exceptions\InvalidArgument;
 
 class Url implements UriInterface
 {
+    use Macroable;
+
     /** @var string */
     protected $scheme = '';
 

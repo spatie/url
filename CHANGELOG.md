@@ -2,6 +2,9 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 1.2.0 - 2017-09-18
+- Added: `Url` now is macroable
+
 ## 1.1.0 - 2017-07-01
 - Added: `getFirstSegment` and `getLastSegment`
 
