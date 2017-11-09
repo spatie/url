@@ -14,7 +14,7 @@ class QueryParameterBag
         $this->parameters = $parameters;
     }
 
-    public static function fromString(string $query = ''): QueryParameterBag
+    public static function fromString(string $query = ''): self
     {
         if ($query === '') {
             return new static();
