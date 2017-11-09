@@ -3,9 +3,10 @@
 namespace Spatie\Url\Test;
 
 use Spatie\Url\Url;
+use PHPUnit\Framework\TestCase;
 use Spatie\Url\Exceptions\InvalidArgument;
 
-class UrlParseTest extends \PHPUnit_Framework_TestCase
+class UrlParseTest extends TestCase
 {
     /** @test */
     public function it_can_parse_a_scheme()

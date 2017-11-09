@@ -3,8 +3,9 @@
 namespace Spatie\Url\Test;
 
 use Spatie\Url\Url;
+use PHPUnit\Framework\TestCase;
 
-class UrlMatchesTest extends \PHPUnit_Framework_TestCase
+class UrlMatchesTest extends TestCase
 {
     /** @test */
     public function it_can_check_if_it_matches_another_url()

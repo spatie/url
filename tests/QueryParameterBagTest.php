@@ -2,9 +2,10 @@
 
 namespace Spatie\Url\Test;
 
+use PHPUnit\Framework\TestCase;
 use Spatie\Url\QueryParameterBag;
 
-class QueryParameterBagTest extends \PHPUnit_Framework_TestCase
+class QueryParameterBagTest extends TestCase
 {
     /** @test */
     public function it_can_get_a_parameter()

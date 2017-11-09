@@ -3,8 +3,9 @@
 namespace Spatie\Url\Test;
 
 use Spatie\Url\Url;
+use PHPUnit\Framework\TestCase;
 
-class UrlImmutableTest extends \PHPUnit_Framework_TestCase
+class UrlImmutableTest extends TestCase
 {
     /** @test */
     public function with_scheme_returns_a_new_instance()
