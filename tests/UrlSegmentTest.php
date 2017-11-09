@@ -3,9 +3,10 @@
 namespace Spatie\Url\Test;
 
 use Spatie\Url\Url;
+use PHPUnit\Framework\TestCase;
 use Spatie\Url\Exceptions\InvalidArgument;
 
-class UrlSegmentTest extends \PHPUnit_Framework_TestCase
+class UrlSegmentTest extends TestCase
 {
     /** @test */
     public function it_can_return_all_path_segments()

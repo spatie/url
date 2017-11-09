@@ -3,9 +3,10 @@
 namespace Spatie\Url\Test;
 
 use Spatie\Url\Url;
+use PHPUnit\Framework\TestCase;
 use Spatie\Url\Exceptions\InvalidArgument;
 
-class UrlBuildTest extends \PHPUnit_Framework_TestCase
+class UrlBuildTest extends TestCase
 {
     /** @test */
     public function it_can_build_a_url_with_a_host()

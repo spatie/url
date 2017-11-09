@@ -3,8 +3,9 @@
 namespace Spatie\Url\Test;
 
 use Spatie\Url\Url;
+use PHPUnit\Framework\TestCase;
 
-class UrlQueryParametersTest extends \PHPUnit_Framework_TestCase
+class UrlQueryParametersTest extends TestCase
 {
     /** @test */
     public function it_can_get_a_query_parameter()
