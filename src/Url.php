@@ -34,7 +34,7 @@ class Url implements UriInterface
     /** @var string */
     protected $fragment = '';
 
-    const VALID_SCHEMES = ['http', 'https'];
+    const VALID_SCHEMES = ['http', 'https', 'mailto'];
 
     public function __construct()
     {
@@ -311,8 +311,12 @@ class Url implements UriInterface
     {
         $url = '';
 
-        if ($this->getScheme() !== '') {
+        if ($this->getScheme() !== '' && $this->getScheme() != 'mailto') {
             $url .= $this->getScheme().'://';
+        }
+
+        if ($this->getScheme() === 'mailto' && $this->getPath() !== '') {
+            $url .= $this->getScheme().':';
         }
 
         if ($this->getScheme() === '' && $this->getAuthority() !== '') {
