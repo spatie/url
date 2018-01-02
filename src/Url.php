@@ -302,7 +302,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function matches(Url $url): bool
+    public function matches(self $url): bool
     {
         return $this->__toString() === $url->__toString();
     }
