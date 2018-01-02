@@ -2,6 +2,9 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 1.3.0 - 2018-02-01
+- Added: support for simple `mailto:` links
+
 ## 1.2.0 - 2017-09-18
 - Added: `Url` now is macroable
 
