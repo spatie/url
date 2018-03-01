@@ -24,6 +24,12 @@ class UrlBuildTest extends TestCase
             ->withHost('spatie.be');
 
         $this->assertEquals('https://spatie.be', $url->__toString());
+
+        $url = Url::create()
+            ->withScheme('applewebdata')
+            ->withHost('spatie.be');
+
+        $this->assertEquals('applewebdata://spatie.be', $url->__toString());
     }
 
     /** @test */
@@ -38,9 +44,9 @@ class UrlBuildTest extends TestCase
     public function it_throws_an_exception_when_providing_an_invalid_url_scheme()
     {
         $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(InvalidArgument::invalidScheme('htps')->getMessage());
+        $this->expectExceptionMessage(InvalidArgument::invalidScheme('123invalidshemehtps')->getMessage());
 
-        Url::create()->withScheme('htps');
+        Url::create()->withScheme('123invalidshemehtps');
     }
 
     /** @test */

@@ -34,7 +34,8 @@ class Url implements UriInterface
     /** @var string */
     protected $fragment = '';
 
-    const VALID_SCHEMES = ['http', 'https', 'mailto'];
+    /** @var string */
+    const VALID_SCHEME_REGEX = '/^[a-zA-Z][a-zA-Z0-9+.-]{1,}/';
 
     public function __construct()
     {
@@ -214,7 +215,7 @@ class Url implements UriInterface
     {
         $scheme = strtolower($scheme);
 
-        if (! in_array($scheme, static::VALID_SCHEMES)) {
+        if (! preg_match(static::VALID_SCHEME_REGEX, $scheme)) {
             throw InvalidArgument::invalidScheme($scheme);
         }
 
