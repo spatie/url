@@ -36,9 +36,9 @@ class UrlParseTest extends TestCase
     public function it_throws_an_exception_if_an_invalid_scheme_is_provided()
     {
         $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(InvalidArgument::invalidScheme('htps')->getMessage());
+        $this->expectExceptionMessage(InvalidArgument::invalidScheme('123invalidshemehtps')->getMessage());
 
-        Url::fromString('htps://spatie.be');
+        Url::fromString('123invalidshemehtps://spatie.be');
     }
 
     /** @test */
