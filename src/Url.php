@@ -125,7 +125,7 @@ class Url implements UriInterface
 
     public function getQuery(): string
     {
-        return $this->query->__toString();
+        return (string) $this->query;
     }
 
     public function getQueryParameter(string $key, $default = null)
@@ -304,7 +304,7 @@ class Url implements UriInterface
 
     public function matches(self $url): bool
     {
-        return $this->__toString() === $url->__toString();
+        return (string) $this === (string) $url;
     }
 
     public function __toString()

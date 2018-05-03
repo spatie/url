@@ -13,7 +13,7 @@ class UrlBuildTest extends TestCase
     {
         $url = Url::create()->withHost('spatie.be');
 
-        $this->assertEquals('//spatie.be', $url->__toString());
+        $this->assertEquals('//spatie.be', $url);
     }
 
     /** @test */
@@ -23,7 +23,7 @@ class UrlBuildTest extends TestCase
             ->withScheme('https')
             ->withHost('spatie.be');
 
-        $this->assertEquals('https://spatie.be', $url->__toString());
+        $this->assertEquals('https://spatie.be', (string) $url);
     }
 
     /** @test */
@@ -31,7 +31,7 @@ class UrlBuildTest extends TestCase
     {
         $url = Url::fromString('https://spatie.be/');
 
-        $this->assertEquals('https://spatie.be', $url->__toString());
+        $this->assertEquals('https://spatie.be', (string) $url);
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class UrlBuildTest extends TestCase
             ->withHost('spatie.be')
             ->withUserInfo('sebastian');
 
-        $this->assertEquals('//sebastian@spatie.be', $url->__toString());
+        $this->assertEquals('//sebastian@spatie.be', (string) $url);
     }
 
     /** @test */
@@ -60,7 +60,7 @@ class UrlBuildTest extends TestCase
             ->withHost('spatie.be')
             ->withUserInfo('sebastian', 'supersecret');
 
-        $this->assertEquals('//sebastian:supersecret@spatie.be', $url->__toString());
+        $this->assertEquals('//sebastian:supersecret@spatie.be', (string) $url);
     }
 
     /** @test */
@@ -70,7 +70,7 @@ class UrlBuildTest extends TestCase
             ->withHost('spatie.be')
             ->withPort(9000);
 
-        $this->assertEquals('//spatie.be:9000', $url->__toString());
+        $this->assertEquals('//spatie.be:9000', (string) $url);
     }
 
     /** @test */
@@ -80,7 +80,7 @@ class UrlBuildTest extends TestCase
             ->withHost('spatie.be')
             ->withPath('/opensource');
 
-        $this->assertEquals('//spatie.be/opensource', $url->__toString());
+        $this->assertEquals('//spatie.be/opensource', (string) $url);
     }
 
     /** @test */
@@ -100,7 +100,28 @@ class UrlBuildTest extends TestCase
             ->withHost('spatie.be')
             ->withDirname('opensource');
 
-        $this->assertEquals('//spatie.be/opensource', $url->__toString());
+        $this->assertEquals('//spatie.be/opensource', (string) $url);
+    }
+
+    /** @test */
+    public function it_can_build_a_url_with_a_dirname_and_base_name()
+    {
+        $url = Url::create()
+            ->withHost('spatie.be')
+            ->withBaseName('source')
+            ->withDirname('opensource');
+
+        $this->assertEquals('//spatie.be/opensource/source', (string) $url);
+    }
+
+    /** @test */
+    public function it_can_build_a_url_is_only_with_a_base_name()
+    {
+        $url = Url::create()
+            ->withHost('spatie.be')
+            ->withBaseName('source');
+
+        $this->assertEquals('//spatie.be/source', (string) $url);
     }
 
     /** @test */
@@ -111,7 +132,7 @@ class UrlBuildTest extends TestCase
             ->withPath('/opensource/php')
             ->withBasename('laravel');
 
-        $this->assertEquals('//spatie.be/opensource/laravel', $url->__toString());
+        $this->assertEquals('//spatie.be/opensource/laravel', (string) $url);
     }
 
     /** @test */
@@ -121,7 +142,7 @@ class UrlBuildTest extends TestCase
             ->withHost('spatie.be')
             ->withQuery('utm_source=phpunit');
 
-        $this->assertEquals('//spatie.be?utm_source=phpunit', $url->__toString());
+        $this->assertEquals('//spatie.be?utm_source=phpunit', (string) $url);
     }
 
     /** @test */
@@ -131,7 +152,7 @@ class UrlBuildTest extends TestCase
             ->withHost('spatie.be')
             ->withFragment('bottom-of-page');
 
-        $this->assertEquals('//spatie.be#bottom-of-page', $url->__toString());
+        $this->assertEquals('//spatie.be#bottom-of-page', (string) $url);
     }
 
     /** @test */
@@ -148,7 +169,7 @@ class UrlBuildTest extends TestCase
 
         $this->assertEquals(
             'https://sebastian:supersecret@spatie.be:9000/opensource?utm_source=phpunit#bottom-of-page',
-            $url->__toString()
+            $url
         );
     }
 
@@ -160,6 +181,6 @@ class UrlBuildTest extends TestCase
             ->withPort(9000)
             ->withPath('opensource');
 
-        $this->assertEquals('//sebastian:supersecret@:9000/opensource', $url->__toString());
+        $this->assertEquals('//sebastian:supersecret@:9000/opensource', (string) $url);
     }
 }
