@@ -12,6 +12,8 @@ A simple package to deal with URL's in your applications.
 Retrieve parts of the URL:
 
 ```php
+use Spatie\Url\Url;
+
 $url = Url::fromString('https://spatie.be/opensource');
 
 echo $url->getScheme(); // 'https'
