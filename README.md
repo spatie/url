@@ -3,7 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/spatie/url/master.svg?style=flat-square)](https://travis-ci.org/spatie/url)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/511cb04c-4420-4400-993d-5ba4ef55071f.svg?style=flat-square)](https://insight.sensiolabs.com/projects/511cb04c-4420-4400-993d-5ba4ef55071f)
 [![StyleCI](https://styleci.io/repos/67992655/shield)](https://styleci.io/repos/67992655)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 
