@@ -32,9 +32,9 @@ echo $url->withHost('github.com')->withPath('spatie');
 Retrieve and transform query parameters:
 
 ```php
-$url = Url::fromString('https://spatie.be/opensource?utm_source=github&utm_campaign=pacakges');
+$url = Url::fromString('https://spatie.be/opensource?utm_source=github&utm_campaign=packages');
 
-echo $url->getQuery(); // 'utm_source=github&utm_campaign=pacakges'
+echo $url->getQuery(); // 'utm_source=github&utm_campaign=packages'
 echo $url->getQueryParameter('utm_source'); // 'github'
 echo $url->withoutQueryParameter('utm_campaign'); // 'https://spatie.be/opensource?utm_source=github'
 ```
@@ -77,7 +77,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## Testing
 
 ``` bash
-$ composer test
+composer test
 ```
 
 ## Contributing
