@@ -2,9 +2,9 @@
 
 namespace Spatie\Url\Test;
 
-use Spatie\Url\Url;
 use PHPUnit\Framework\TestCase;
 use Spatie\Url\Exceptions\InvalidArgument;
+use Spatie\Url\Url;
 
 class UrlParseTest extends TestCase
 {

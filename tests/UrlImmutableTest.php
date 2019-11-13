@@ -2,8 +2,8 @@
 
 namespace Spatie\Url\Test;
 
-use Spatie\Url\Url;
 use PHPUnit\Framework\TestCase;
+use Spatie\Url\Url;
 
 class UrlImmutableTest extends TestCase
 {
