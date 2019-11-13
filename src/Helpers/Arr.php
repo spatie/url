@@ -16,7 +16,7 @@ class Arr
     public static function mapToAssoc(array $items, callable $callback)
     {
         return array_reduce($items, function (array $assoc, $item) use ($callback) {
-            list($key, $value) = $callback($item);
+            [$key, $value] = $callback($item);
             $assoc[$key] = $value;
 
             return $assoc;

@@ -2,8 +2,8 @@
 
 namespace Spatie\Url;
 
-use Spatie\Macroable\Macroable;
 use Psr\Http\Message\UriInterface;
+use Spatie\Macroable\Macroable;
 use Spatie\Url\Exceptions\InvalidArgument;
 
 class Url implements UriInterface
