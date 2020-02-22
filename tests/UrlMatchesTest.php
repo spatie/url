@@ -24,6 +24,14 @@ class UrlMatchesTest extends TestCase
     }
 
     /** @test */
+    public function it_differentiates_between_urls_with_trailing_slash()
+    {
+        $url = Url::fromString('https://spatie.be/opensource/');
+
+        $this->assertFalse($url->matches(Url::fromString('https://spatie.be/opensource')));
+    }
+
+    /** @test */
     public function it_can_check_if_it_contains_a_mailto()
     {
         $url = Url::fromString('mailto:email@domain.tld');

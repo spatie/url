@@ -327,7 +327,9 @@ class Url implements UriInterface
             $url .= $this->getAuthority();
         }
 
-        $url .= rtrim($this->getPath(), '/');
+        if ($this->getPath() !== '/') {
+            $url .= $this->getPath();
+        }
 
         if ($this->getQuery() !== '') {
             $url .= '?'.$this->getQuery();

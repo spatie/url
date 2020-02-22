@@ -58,6 +58,14 @@ class UrlParseTest extends TestCase
     }
 
     /** @test */
+    public function it_preserves_a_trailing_slash_in_the_path()
+    {
+        $url = Url::fromString('https://spatie.be/opensource/');
+
+        $this->assertEquals('/opensource/', $url->getPath());
+    }
+
+    /** @test */
     public function it_can_parse_an_empty_path()
     {
         $url = Url::fromString('https://spatie.be');
