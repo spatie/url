@@ -2,7 +2,7 @@
 
 All Notable changes to `url` will be documented in this file
 
-## 1.3.1 - 2020-02-19
+## 1.3.2 - 2020-02-19
 - Updated: preserve trailing slash in URL path (#33)
 
 ## 1.3.0 - 2018-02-01
