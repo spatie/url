@@ -84,6 +84,16 @@ class UrlBuildTest extends TestCase
     }
 
     /** @test */
+    public function it_preserves_a_trailing_slash_in_the_path()
+    {
+        $url = Url::create()
+            ->withHost('spatie.be')
+            ->withPath('opensource/');
+
+        $this->assertEquals('//spatie.be/opensource/', (string) $url);
+    }
+
+    /** @test */
     public function it_prefixes_paths_with_a_slash_if_its_not_present()
     {
         $url = Url::create()
