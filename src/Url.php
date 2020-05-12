@@ -146,6 +146,7 @@ class Url implements UriInterface
     public function addQueryParameter(string $key, string $value)
     {
         $this->query->unset($key);
+        
         $this->query->set($key, $value);
 
         return $this;
