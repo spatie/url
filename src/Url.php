@@ -143,6 +143,14 @@ class Url implements UriInterface
         return $this->query->all();
     }
 
+    public function addQueryParameter(string $key, string $value)
+    {
+        $this->query->unset($key);
+        $this->query->set($key, $value);
+
+        return $this;
+    }
+
     public function withQueryParameter(string $key, string $value)
     {
         $url = clone $this;
@@ -151,6 +159,13 @@ class Url implements UriInterface
         $url->query->set($key, $value);
 
         return $url;
+    }
+
+    public function removeQueryParameter(string $key, string $value)
+    {
+        $this->query->unset($key);
+
+        return $this;
     }
 
     public function withoutQueryParameter(string $key)
