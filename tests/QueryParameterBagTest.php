@@ -92,4 +92,18 @@ class QueryParameterBagTest extends TestCase
 
         $this->assertEquals('offset=10&limit=20', $queryParameterBag->__toString());
     }
+
+    /** @test */
+    public function it_url_encodes_values_when_being_casted_to_a_string()
+    {
+        $queryParameterBag = new QueryParameterBag([]);
+
+        $queryParameterBag->set('category', 'storage furniture');
+        $queryParameterBag->set('discount', '>40% off');
+
+        $this->assertEquals(
+            'category=storage%20furniture&discount=%3E40%25%20off',
+            $queryParameterBag->__toString()
+        );
+    }
 }
