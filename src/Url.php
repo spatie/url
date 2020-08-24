@@ -148,7 +148,7 @@ class Url implements UriInterface
         $url = clone $this;
         $url->query->unset($key);
 
-        $url->query->set($key, urlencode($value));
+        $url->query->set($key, $value);
 
         return $url;
     }

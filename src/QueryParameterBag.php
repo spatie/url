@@ -59,7 +59,7 @@ class QueryParameterBag
     public function __toString()
     {
         $keyValuePairs = Arr::map($this->parameters, function ($value, $key) {
-            return "{$key}={$value}";
+            return "{$key}=".urlencode($value);
         });
 
         return implode('&', $keyValuePairs);
