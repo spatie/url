@@ -94,6 +94,17 @@ class QueryParameterBagTest extends TestCase
     }
 
     /** @test */
+    public function it_can_be_created_from_a_string_with_url_encoded_values()
+    {
+        $queryParameterBag = QueryParameterBag::fromString(
+            'category=storage%20furniture&discount=%3E40%25%20off'
+        );
+
+        $this->assertEquals('storage furniture', $queryParameterBag->get('category'));
+        $this->assertEquals('>40% off', $queryParameterBag->get('discount'));
+    }
+
+    /** @test */
     public function it_url_encodes_values_when_being_casted_to_a_string()
     {
         $queryParameterBag = new QueryParameterBag([]);
