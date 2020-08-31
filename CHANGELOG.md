@@ -2,6 +2,10 @@
 
 All Notable changes to `url` will be documented in this file
 
+# 1.3.3 - 2020-08-31
+
+- urlencode() new query params values (#35)
+
 ## 1.3.2 - 2020-02-19
 - Updated: preserve trailing slash in URL path (#33)
 
