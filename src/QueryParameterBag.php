@@ -23,7 +23,9 @@ class QueryParameterBag
         return new static(Arr::mapToAssoc(explode('&', $query), function (string $keyValue) {
             $parts = explode('=', $keyValue, 2);
 
-            return count($parts) === 2 ? $parts : [$parts[0], null];
+            return count($parts) === 2
+                ? [$parts[0], rawurldecode($parts[1])]
+                : [$parts[0], null];
         }));
     }
 
@@ -59,7 +61,7 @@ class QueryParameterBag
     public function __toString()
     {
         $keyValuePairs = Arr::map($this->parameters, function ($value, $key) {
-            return "{$key}={$value}";
+            return "{$key}=".rawurlencode($value);
         });
 
         return implode('&', $keyValuePairs);
