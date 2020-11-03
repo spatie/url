@@ -6,7 +6,7 @@ All Notable changes to `url` will be documented in this file
 
 - support PHP 8
 
-# 1.3.3 - 2020-08-31
+## 1.3.3 - 2020-08-31
 
 - urlencode() new query params values (#35)
 
