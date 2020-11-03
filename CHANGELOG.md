@@ -2,6 +2,10 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 1.3.5 - 2020-11-05
+
+- update deps
+
 ## 1.3.4 - 2020-11-04
 
 - support PHP 8
