@@ -2,8 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/spatie/url/master.svg?style=flat-square)](https://travis-ci.org/spatie/url)
-[![StyleCI](https://styleci.io/repos/67992655/shield)](https://styleci.io/repos/67992655)
+![run-tests](https://github.com/spatie/url/workflows/run-tests/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 
 A simple package to deal with URL's in your applications.
