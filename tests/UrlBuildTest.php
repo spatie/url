@@ -13,7 +13,7 @@ class UrlBuildTest extends TestCase
     {
         $url = Url::create()->withHost('spatie.be');
 
-        $this->assertEquals('//spatie.be', $url);
+        $this->assertSame('//spatie.be', (string) $url);
     }
 
     /** @test */

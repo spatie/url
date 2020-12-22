@@ -46,7 +46,7 @@ class QueryParameterBagTest extends TestCase
 
         $queryParameterBag->set('offset', 10);
 
-        $this->assertEquals(10, $queryParameterBag->get('offset'));
+        $this->assertSame('10', $queryParameterBag->get('offset'));
     }
 
     /** @test */
@@ -73,8 +73,8 @@ class QueryParameterBagTest extends TestCase
     {
         $queryParameterBag = QueryParameterBag::fromString('offset=10&limit=20');
 
-        $this->assertEquals(10, $queryParameterBag->get('offset'));
-        $this->assertEquals(20, $queryParameterBag->get('limit'));
+        $this->assertSame('10', $queryParameterBag->get('offset'));
+        $this->assertSame('20', $queryParameterBag->get('limit'));
     }
 
     /** @test */
