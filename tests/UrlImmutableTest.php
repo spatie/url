@@ -47,7 +47,7 @@ class UrlImmutableTest extends TestCase
 
         $clone = $url->withPort(9000);
 
-        $this->assertEquals(0, $url->getPort());
+        $this->assertNull($url->getPort());
         $this->assertEquals(9000, $clone->getPort());
     }
 

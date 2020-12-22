@@ -12,7 +12,7 @@ class UrlQueryParametersTest extends TestCase
     {
         $url = Url::create()->withQuery('offset=10');
 
-        $this->assertEquals(10, $url->getQueryParameter('offset'));
+        $this->assertSame('10', $url->getQueryParameter('offset'));
     }
 
     /** @test */
@@ -44,7 +44,7 @@ class UrlQueryParametersTest extends TestCase
     {
         $url = Url::create()->withQueryParameter('offset', 10);
 
-        $this->assertEquals(10, $url->getQueryParameter('offset'));
+        $this->assertSame('10', $url->getQueryParameter('offset'));
     }
 
     /** @test */
