@@ -341,9 +341,4 @@ class Url implements UriInterface
 
         return $url;
     }
-
-    public function __clone()
-    {
-        $this->query = clone $this->query;
-    }
 }
