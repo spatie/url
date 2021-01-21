@@ -153,6 +153,17 @@ class Url implements UriInterface
         return $url;
     }
 
+    public function withQueryParameters(array $parameters)
+    {
+        $url = $this;
+
+        foreach ($parameters as $key => $value) {
+            $url = $url->withQueryParameter($key, $value);
+        }
+
+        return $url;
+    }
+
     public function withoutQueryParameter(string $key)
     {
         $url = clone $this;

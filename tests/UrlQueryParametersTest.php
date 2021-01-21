@@ -48,6 +48,15 @@ class UrlQueryParametersTest extends TestCase
     }
 
     /** @test */
+    public function it_can_set_query_parameters()
+    {
+        $url = Url::create()->withQueryParameters(['offset' => 10, 'limit' => 5]);
+
+        $this->assertSame('10', $url->getQueryParameter('offset'));
+        $this->assertSame('5', $url->getQueryParameter('limit'));
+    }
+
+    /** @test */
     public function it_can_check_if_it_has_a_query_parameter()
     {
         $url = Url::create()->withQuery('offset=10');
