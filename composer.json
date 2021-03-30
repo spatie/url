@@ -16,12 +16,12 @@
         }
     ],
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^8.0",
         "psr/http-message": "^1.0",
-        "spatie/macroable": "^1.0.1"
+        "spatie/macroable": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.0|^9.3"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
