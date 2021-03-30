@@ -1,11 +1,11 @@
-# Parse, build and manipulate URL's
+# Parse, build and manipulate URLs
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-![run-tests](https://github.com/spatie/url/workflows/run-tests/badge.svg)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/url/Tests?label=tests)](https://github.com/spatie/url/actions?query=workflow%3ATests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 
-A simple package to deal with URL's in your applications.
+A simple package to deal with URLs in your applications.
 
 Retrieve parts of the URL:
 
@@ -69,7 +69,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 You can install the package via composer:
 
-``` bash
+```bash
 composer require spatie/url
 ```
 
@@ -83,17 +83,21 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Testing
 
-``` bash
+```bash
 composer test
 ```
 
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
-## Security
+## Security Vulnerabilities
 
-If you discover any security related issues, please email freek@spatie.be instead of using the issue tracker.
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Postcardware
 
