@@ -10,43 +10,35 @@ class Url implements UriInterface
 {
     use Macroable;
 
-    /** @var string */
-    protected $scheme = '';
+    protected string $scheme = '';
 
-    /** @var string */
-    protected $host = '';
+    protected string $host = '';
 
-    /** @var int|null */
-    protected $port = null;
+    protected ?int $port = null;
 
-    /** @var string */
-    protected $user = '';
+    protected string $user = '';
 
-    /** @var string|null */
-    protected $password = null;
+    protected ?string $password = null;
 
-    /** @var string */
-    protected $path = '';
+    protected string $path = '';
 
-    /** @var \Spatie\Url\QueryParameterBag */
-    protected $query;
+    protected QueryParameterBag $query;
 
-    /** @var string */
-    protected $fragment = '';
+    protected string $fragment = '';
 
-    const VALID_SCHEMES = ['http', 'https', 'mailto'];
+    public const VALID_SCHEMES = ['http', 'https', 'mailto'];
 
     public function __construct()
     {
         $this->query = new QueryParameterBag();
     }
 
-    public static function create()
+    public static function create(): static
     {
         return new static();
     }
 
-    public static function fromString(string $url)
+    public static function fromString(string $url): static
     {
         $parts = array_merge(parse_url($url));
 
@@ -63,12 +55,12 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function getScheme()
+    public function getScheme(): string
     {
         return $this->scheme;
     }
 
-    public function getAuthority()
+    public function getAuthority(): string
     {
         $authority = $this->host;
 
@@ -83,7 +75,7 @@ class Url implements UriInterface
         return $authority;
     }
 
-    public function getUserInfo()
+    public function getUserInfo(): string
     {
         $userInfo = $this->user;
 
@@ -94,17 +86,17 @@ class Url implements UriInterface
         return $userInfo;
     }
 
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
 
-    public function getPort()
+    public function getPort(): ?int
     {
         return $this->port;
     }
 
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
@@ -128,7 +120,7 @@ class Url implements UriInterface
         return (string) $this->query;
     }
 
-    public function getQueryParameter(string $key, $default = null)
+    public function getQueryParameter(string $key, $default = null): mixed
     {
         return $this->query->get($key, $default);
     }
@@ -143,7 +135,7 @@ class Url implements UriInterface
         return $this->query->all();
     }
 
-    public function withQueryParameter(string $key, string $value)
+    public function withQueryParameter(string $key, string $value): self
     {
         $url = clone $this;
         $url->query->unset($key);
@@ -153,7 +145,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withoutQueryParameter(string $key)
+    public function withoutQueryParameter(string $key): self
     {
         $url = clone $this;
         $url->query->unset($key);
@@ -161,7 +153,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function getFragment()
+    public function getFragment(): string
     {
         return $this->fragment;
     }
@@ -171,7 +163,7 @@ class Url implements UriInterface
         return explode('/', trim($this->path, '/'));
     }
 
-    public function getSegment(int $index, $default = null)
+    public function getSegment(int $index, mixed $default = null): mixed
     {
         $segments = $this->getSegments();
 
@@ -187,21 +179,21 @@ class Url implements UriInterface
         return $segments[$index - 1] ?? $default;
     }
 
-    public function getFirstSegment()
+    public function getFirstSegment(): mixed
     {
         $segments = $this->getSegments();
 
         return $segments[0] ?? null;
     }
 
-    public function getLastSegment()
+    public function getLastSegment(): mixed
     {
         $segments = $this->getSegments();
 
         return end($segments) ?? null;
     }
 
-    public function withScheme($scheme)
+    public function withScheme($scheme): self
     {
         $url = clone $this;
 
@@ -221,7 +213,7 @@ class Url implements UriInterface
         return $scheme;
     }
 
-    public function withUserInfo($user, $password = null)
+    public function withUserInfo($user, $password = null): self
     {
         $url = clone $this;
 
@@ -231,7 +223,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withHost($host)
+    public function withHost($host): self
     {
         $url = clone $this;
 
@@ -240,7 +232,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withPort($port)
+    public function withPort($port): self
     {
         $url = clone $this;
 
@@ -249,11 +241,11 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withPath($path)
+    public function withPath($path): self
     {
         $url = clone $this;
 
-        if (strpos($path, '/') !== 0) {
+        if (! str_starts_with($path, '/')) {
             $path = '/'.$path;
         }
 
@@ -262,7 +254,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withDirname(string $dirname)
+    public function withDirname(string $dirname): self
     {
         $dirname = trim($dirname, '/');
 
@@ -273,7 +265,7 @@ class Url implements UriInterface
         return $this->withPath($dirname.'/'.$this->getBasename());
     }
 
-    public function withBasename(string $basename)
+    public function withBasename(string $basename): self
     {
         $basename = trim($basename, '/');
 
@@ -284,7 +276,7 @@ class Url implements UriInterface
         return $this->withPath($this->getDirname().'/'.$basename);
     }
 
-    public function withQuery($query)
+    public function withQuery($query): self
     {
         $url = clone $this;
 
@@ -293,7 +285,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withFragment($fragment)
+    public function withFragment($fragment): self
     {
         $url = clone $this;
 
@@ -307,11 +299,11 @@ class Url implements UriInterface
         return (string) $this === (string) $url;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         $url = '';
 
-        if ($this->getScheme() !== '' && $this->getScheme() != 'mailto') {
+        if ($this->getScheme() !== '' && $this->getScheme() !== 'mailto') {
             $url .= $this->getScheme().'://';
         }
 

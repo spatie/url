@@ -6,12 +6,12 @@ use InvalidArgumentException;
 
 class InvalidArgument extends InvalidArgumentException
 {
-    public static function invalidScheme(string $url): self
+    public static function invalidScheme(string $url): static
     {
         return new static("The scheme `{$url}` isn't valid. It should be either `http` or `https`.");
     }
 
-    public static function segmentZeroDoesNotExist()
+    public static function segmentZeroDoesNotExist(): static
     {
         return new static("Segment 0 doesn't exist. Segments can be retrieved by using 1-based index or a negative index.");
     }
