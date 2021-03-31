@@ -1,8 +1,7 @@
 # Parse, build and manipulate URLs
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/url/Tests?label=tests)](https://github.com/spatie/url/actions?query=workflow%3ATests+branch%3Amaster)
+[![Tests](https://github.com/spatie/url/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/url/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)
 
 A simple package to deal with URLs in your applications.
