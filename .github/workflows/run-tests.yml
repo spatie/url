@@ -1,40 +1,41 @@
-name: run-tests
+name: Tests
 
 on:
-    push:
-    pull_request:
-    schedule:
-        - cron: '0 0 * * *'
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
-    test:
-        runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                php: [8.0, 7.4, 7.3, 7.2]
-                dependency-version: [prefer-lowest, prefer-stable]
-                os: [ubuntu-latest, windows-latest]
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        php: [8.0]
+        stability: [prefer-lowest, prefer-stable]
 
-        name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-                  extensions: json, dom, curl, libxml, mbstring
-                  coverage: none
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, json, libxml, mbstring
+          coverage: none
 
-            - name: Install dependencies
-              run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+      - name: Setup problem matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-            - name: Execute tests on Ubuntu OS
-              if: matrix.operating-system == 'ubuntu-latest'
-              run: XDEBUG_MODE=coverage vendor/bin/phpunit
+      - name: Install dependencies
+        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-            - name: Execute tests on Windows OS
-              if: matrix.operating-system == 'windows-latest'
-              run: vendor/bin/phpunit
+      - name: Execute tests
+        run: vendor/bin/phpunit

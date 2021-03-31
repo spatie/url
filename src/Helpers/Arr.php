@@ -4,7 +4,7 @@ namespace Spatie\Url\Helpers;
 
 class Arr
 {
-    public static function map(array $items, callable $callback)
+    public static function map(array $items, callable $callback): array
     {
         $keys = array_keys($items);
 
@@ -13,7 +13,7 @@ class Arr
         return array_combine($keys, $items);
     }
 
-    public static function mapToAssoc(array $items, callable $callback)
+    public static function mapToAssoc(array $items, callable $callback): mixed
     {
         return array_reduce($items, function (array $assoc, $item) use ($callback) {
             [$key, $value] = $callback($item);

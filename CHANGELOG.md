@@ -2,6 +2,12 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.0.0 - unreleased
+
+- require PHP 8+
+- drop support for PHP 7.x
+- use PHP 8 syntax where possible
+
 ## 1.3.5 - 2020-11-05
 
 - update deps
