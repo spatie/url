@@ -3,7 +3,8 @@
 All Notable changes to `url` will be documented in this file
 
 ## 2.0.1 - 2021-06-24
-- Remove prefixing `/` for `mailto:` schemes when building `withPath()`
+
+- remove prefixing `/` for `mailto:` schemes when building `withPath()`
 
 ## 2.0.0 - 2021-03-31
 
