@@ -320,7 +320,11 @@ class Url implements UriInterface
         }
 
         if ($this->getPath() !== '/') {
-            $url .= $this->getPath();
+            $path = $this->getScheme() === 'mailto'
+                ? ltrim($this->getPath(), '/')
+                : $this->getPath();
+
+            $url .= $path;
         }
 
         if ($this->getQuery() !== '') {

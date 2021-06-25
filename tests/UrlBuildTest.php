@@ -27,6 +27,21 @@ class UrlBuildTest extends TestCase
     }
 
     /** @test */
+    public function it_can_build_a_url_with_a_mailto()
+    {
+        $url = Url::create()
+            ->withScheme('mailto')
+            ->withUserInfo('spatie')
+            ->withPath('spatie.be');
+
+        $this->assertNotEquals('mailto:spatie@/spatie.be', (string) $url);
+        $this->assertEquals('mailto:spatie@spatie.be', (string) $url);
+
+        // @TODO Incorrect, but fixing conflicts with backward compatibility.
+        $this->assertEquals('/spatie.be', $url->getPath());
+    }
+
+    /** @test */
     public function it_can_convert_itself_back_to_a_string()
     {
         $url = Url::fromString('https://spatie.be/');

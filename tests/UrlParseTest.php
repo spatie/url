@@ -33,6 +33,14 @@ class UrlParseTest extends TestCase
     }
 
     /** @test */
+    public function it_can_parse_a_path_with_mailto()
+    {
+        $url = Url::fromString('mailto:email@domain.tld');
+
+        $this->assertEquals('email@domain.tld', $url->getPath());
+    }
+
+    /** @test */
     public function it_throws_an_exception_if_an_invalid_scheme_is_provided()
     {
         $this->expectException(InvalidArgument::class);
