@@ -41,7 +41,7 @@ class Url implements UriInterface
     public static function fromString(string $url): static
     {
         if (! $parts = parse_url($url)) {
-            throw new InvalidArgument("Unable to parse string [{$url}]");
+            throw InvalidArgument::invalidUrl($url);
         }
 
         $url = new static();
