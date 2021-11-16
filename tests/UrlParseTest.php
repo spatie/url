@@ -50,6 +50,14 @@ class UrlParseTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_an_exception_if_a_totally_invalid_url_is_provided()
+    {
+        $this->expectException(InvalidArgument::class);
+
+        Url::fromString('///remote/fgt_lang?lang=/../../../..//////////dev/');
+    }
+
+    /** @test */
     public function it_can_parse_a_host()
     {
         $url = Url::fromString('https://spatie.be');
