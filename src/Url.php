@@ -40,7 +40,9 @@ class Url implements UriInterface
 
     public static function fromString(string $url): static
     {
-        $parts = array_merge(parse_url($url));
+        if (! $parts = parse_url($url)) {
+            throw InvalidArgument::invalidUrl($url);
+        }
 
         $url = new static();
         $url->scheme = isset($parts['scheme']) ? $url->sanitizeScheme($parts['scheme']) : '';
