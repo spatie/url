@@ -18,7 +18,8 @@ class QueryParameterBag implements \Stringable
             return new static();
         }
 
-        return new static(Arr::mapToAssoc(explode('&', $query), function (string $keyValue) {
+        return new static(Arr::mapToAssoc(explode('&', $query), function (string $keyValue): array
+        {
             $parts = explode('=', $keyValue, 2);
 
             return count($parts) === 2
@@ -60,7 +61,7 @@ class QueryParameterBag implements \Stringable
     {
         $keyValuePairs = Arr::map(
             $this->parameters,
-            fn ($value, $key) => "{$key}=".rawurlencode($value)
+            fn ($value, $key): string => "{$key}=".rawurlencode($value)
         );
 
         return implode('&', $keyValuePairs);
