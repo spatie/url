@@ -5,8 +5,9 @@ namespace Spatie\Url;
 use Psr\Http\Message\UriInterface;
 use Spatie\Macroable\Macroable;
 use Spatie\Url\Exceptions\InvalidArgument;
+use Stringable;
 
-class Url implements UriInterface
+class Url implements UriInterface, Stringable
 {
     use Macroable;
 
@@ -122,7 +123,7 @@ class Url implements UriInterface
         return (string) $this->query;
     }
 
-    public function getQueryParameter(string $key, $default = null): mixed
+    public function getQueryParameter(string $key, mixed $default = null): mixed
     {
         return $this->query->get($key, $default);
     }
@@ -137,7 +138,7 @@ class Url implements UriInterface
         return $this->query->all();
     }
 
-    public function withQueryParameter(string $key, string $value): self
+    public function withQueryParameter(string $key, string $value): static
     {
         $url = clone $this;
         $url->query->unset($key);
@@ -147,7 +148,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withoutQueryParameter(string $key): self
+    public function withoutQueryParameter(string $key): static
     {
         $url = clone $this;
         $url->query->unset($key);
@@ -195,7 +196,7 @@ class Url implements UriInterface
         return end($segments) ?? null;
     }
 
-    public function withScheme($scheme): self
+    public function withScheme($scheme): static
     {
         $url = clone $this;
 
@@ -215,7 +216,7 @@ class Url implements UriInterface
         return $scheme;
     }
 
-    public function withUserInfo($user, $password = null): self
+    public function withUserInfo($user, $password = null): static
     {
         $url = clone $this;
 
@@ -225,7 +226,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withHost($host): self
+    public function withHost($host): static
     {
         $url = clone $this;
 
@@ -234,7 +235,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withPort($port): self
+    public function withPort($port): static
     {
         $url = clone $this;
 
@@ -243,7 +244,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withPath($path): self
+    public function withPath($path): static
     {
         $url = clone $this;
 
@@ -256,7 +257,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withDirname(string $dirname): self
+    public function withDirname(string $dirname): static
     {
         $dirname = trim($dirname, '/');
 
@@ -267,7 +268,7 @@ class Url implements UriInterface
         return $this->withPath($dirname.'/'.$this->getBasename());
     }
 
-    public function withBasename(string $basename): self
+    public function withBasename(string $basename): static
     {
         $basename = trim($basename, '/');
 
@@ -278,7 +279,7 @@ class Url implements UriInterface
         return $this->withPath($this->getDirname().'/'.$basename);
     }
 
-    public function withQuery($query): self
+    public function withQuery($query): static
     {
         $url = clone $this;
 
@@ -287,7 +288,7 @@ class Url implements UriInterface
         return $url;
     }
 
-    public function withFragment($fragment): self
+    public function withFragment($fragment): static
     {
         $url = clone $this;
 
