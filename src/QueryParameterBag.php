@@ -4,7 +4,7 @@ namespace Spatie\Url;
 
 use Spatie\Url\Helpers\Arr;
 
-class QueryParameterBag
+class QueryParameterBag implements \Stringable
 {
     public function __construct(
         protected array $parameters = [],

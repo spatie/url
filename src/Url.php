@@ -5,8 +5,9 @@ namespace Spatie\Url;
 use Psr\Http\Message\UriInterface;
 use Spatie\Macroable\Macroable;
 use Spatie\Url\Exceptions\InvalidArgument;
+use Stringable;
 
-class Url implements UriInterface
+class Url implements UriInterface, Stringable
 {
     use Macroable;
 
