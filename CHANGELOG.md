@@ -2,6 +2,18 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.0.3 - 2021-12-29
+
+## What's Changed
+
+- PHP 8.1 Compatibility by @MaSpeng in https://github.com/spatie/url/pull/49
+
+## New Contributors
+
+- @MaSpeng made their first contribution in https://github.com/spatie/url/pull/49
+
+**Full Changelog**: https://github.com/spatie/url/compare/2.0.2...2.0.3
+
 ## 2.0.2 - 2021-11-17
 
 ## What's Changed
