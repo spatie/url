@@ -2,6 +2,18 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.0.4 - 2022-02-03
+
+## What's Changed
+
+- Add ability to set multiple query parameters at once by @rapkis in https://github.com/spatie/url/pull/51
+
+## New Contributors
+
+- @rapkis made their first contribution in https://github.com/spatie/url/pull/51
+
+**Full Changelog**: https://github.com/spatie/url/compare/2.0.3...2.0.4
+
 ## 2.0.3 - 2021-12-29
 
 ## What's Changed
