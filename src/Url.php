@@ -148,6 +148,15 @@ class Url implements UriInterface, Stringable
         return $url;
     }
 
+    public function withQueryParameters(array $parameters): static
+    {
+        $parameters = array_merge($this->getAllQueryParameters(), $parameters);
+        $url = clone $this;
+        $url->query = new QueryParameterBag($parameters);
+
+        return $url;
+    }
+
     public function withoutQueryParameter(string $key): static
     {
         $url = clone $this;

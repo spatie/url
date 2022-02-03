@@ -48,6 +48,24 @@ class UrlQueryParametersTest extends TestCase
     }
 
     /** @test */
+    public function it_can_set_multiple_query_parameters()
+    {
+        $url = Url::create()->withQueryParameters(['offset' => 10, 'limit' => 5]);
+
+        $this->assertEquals('10', $url->getQueryParameter('offset'));
+        $this->assertEquals('5', $url->getQueryParameter('limit'));
+    }
+
+    /** @test */
+    public function it_merges_multiple_query_parameters()
+    {
+        $url = Url::create()->withQuery('offset=10')->withQueryParameters(['limit' => 5]);
+
+        $this->assertTrue($url->hasQueryParameter('offset'));
+        $this->assertTrue($url->hasQueryParameter('limit'));
+    }
+
+    /** @test */
     public function it_can_check_if_it_has_a_query_parameter()
     {
         $url = Url::create()->withQuery('offset=10');

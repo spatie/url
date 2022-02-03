@@ -35,6 +35,7 @@ $url = Url::fromString('https://spatie.be/opensource?utm_source=github&utm_campa
 echo $url->getQuery(); // 'utm_source=github&utm_campaign=packages'
 echo $url->getQueryParameter('utm_source'); // 'github'
 echo $url->withoutQueryParameter('utm_campaign'); // 'https://spatie.be/opensource?utm_source=github'
+echo $url->withQueryParameters(['utm_campaign' => 'packages']); // 'https://spatie.be/opensource?utm_source=github&utm_campaign=packages'
 ```
 
 Retrieve path segments:
