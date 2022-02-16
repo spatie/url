@@ -18,7 +18,7 @@ class QueryParameterBag implements \Stringable
 
         $parameters = [];
         parse_str($query, $parameters);
-        $parameters = array_map(fn($param) => $param !== '' ? $param : null, $parameters);
+        $parameters = array_map(fn ($param) => $param !== '' ? $param : null, $parameters);
 
         return new static($parameters);
     }
