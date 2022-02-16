@@ -2,6 +2,14 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.0.5 - 2022-02-16
+
+## What's Changed
+
+- Add support for array query parameters by @rapkis in https://github.com/spatie/url/pull/52
+
+**Full Changelog**: https://github.com/spatie/url/compare/2.0.4...2.0.5
+
 ## 2.0.4 - 2022-02-03
 
 ## What's Changed
