@@ -2,8 +2,6 @@
 
 namespace Spatie\Url;
 
-use Spatie\Url\Helpers\Arr;
-
 class QueryParameterBag implements \Stringable
 {
     public function __construct(
@@ -18,14 +16,11 @@ class QueryParameterBag implements \Stringable
             return new static();
         }
 
-        return new static(Arr::mapToAssoc(explode('&', $query), function (string $keyValue): array
-        {
-            $parts = explode('=', $keyValue, 2);
+        $parameters = [];
+        parse_str($query, $parameters);
+        $parameters = array_map(fn($param) => $param !== '' ? $param : null, $parameters);
 
-            return count($parts) === 2
-                ? [$parts[0], rawurldecode($parts[1])]
-                : [$parts[0], null];
-        }));
+        return new static($parameters);
     }
 
     public function get(string $key, mixed $default = null): mixed
@@ -38,7 +33,7 @@ class QueryParameterBag implements \Stringable
         return array_key_exists($key, $this->parameters);
     }
 
-    public function set(string $key, string $value): self
+    public function set(string $key, string|array $value): self
     {
         $this->parameters[$key] = $value;
 
@@ -59,11 +54,6 @@ class QueryParameterBag implements \Stringable
 
     public function __toString(): string
     {
-        $keyValuePairs = Arr::map(
-            $this->parameters,
-            fn ($value, $key): string => "{$key}=".rawurlencode($value)
-        );
-
-        return implode('&', $keyValuePairs);
+        return http_build_query($this->parameters, '', '&', PHP_QUERY_RFC3986);
     }
 }

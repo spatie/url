@@ -40,13 +40,23 @@ class QueryParameterBagTest extends TestCase
     }
 
     /** @test */
-    public function it_can_set_a_parameter()
+    public function it_can_set_a_string_parameter()
     {
         $queryParameterBag = new QueryParameterBag([]);
 
         $queryParameterBag->set('offset', 10);
 
         $this->assertSame('10', $queryParameterBag->get('offset'));
+    }
+
+    /** @test */
+    public function it_can_set_an_array_parameter()
+    {
+        $queryParameterBag = new QueryParameterBag([]);
+
+        $queryParameterBag->set('range', [10, 20]);
+
+        $this->assertSame([10, 20], $queryParameterBag->get('range'));
     }
 
     /** @test */
@@ -97,11 +107,12 @@ class QueryParameterBagTest extends TestCase
     public function it_can_be_created_from_a_string_with_url_encoded_values()
     {
         $queryParameterBag = QueryParameterBag::fromString(
-            'category=storage%20furniture&discount=%3E40%25%20off'
+            'category=storage%20furniture&discount=%3E40%25%20off&range%5B0%5D=10&range%5B1%5D=20'
         );
 
         $this->assertEquals('storage furniture', $queryParameterBag->get('category'));
         $this->assertEquals('>40% off', $queryParameterBag->get('discount'));
+        $this->assertEquals([10, 20], $queryParameterBag->get('range'));
     }
 
     /** @test */
@@ -111,9 +122,10 @@ class QueryParameterBagTest extends TestCase
 
         $queryParameterBag->set('category', 'storage furniture');
         $queryParameterBag->set('discount', '>40% off');
+        $queryParameterBag->set('range', [10, 20]);
 
         $this->assertEquals(
-            'category=storage%20furniture&discount=%3E40%25%20off',
+            'category=storage%20furniture&discount=%3E40%25%20off&range%5B0%5D=10&range%5B1%5D=20',
             $queryParameterBag->__toString()
         );
     }
