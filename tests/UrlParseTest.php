@@ -41,6 +41,22 @@ class UrlParseTest extends TestCase
     }
 
     /** @test */
+    public function it_can_parse_a_scheme_with_tel()
+    {
+        $url = Url::fromString('tel:+3112345678');
+
+        $this->assertEquals('tel', $url->getScheme());
+    }
+
+    /** @test */
+    public function it_can_parse_a_path_withtel()
+    {
+        $url = Url::fromString('tel:+3112345678');
+
+        $this->assertEquals('+3112345678', $url->getPath());
+    }
+
+    /** @test */
     public function it_throws_an_exception_if_an_invalid_scheme_is_provided()
     {
         $this->expectException(InvalidArgument::class);

@@ -38,4 +38,12 @@ class UrlMatchesTest extends TestCase
 
         $this->assertTrue($url->matches(Url::fromString('mailto:email@domain.tld')));
     }
+
+    /** @test */
+    public function it_can_check_if_it_contains_a_tel()
+    {
+        $url = Url::fromString('tel:+3112345678');
+
+        $this->assertTrue($url->matches(Url::fromString('tel:+3112345678')));
+    }
 }
