@@ -2,6 +2,18 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.1.0 - 2022-03-28
+
+## What's Changed
+
+- Add support for tel: links by @mrk-j in https://github.com/spatie/url/pull/53
+
+## New Contributors
+
+- @mrk-j made their first contribution in https://github.com/spatie/url/pull/53
+
+**Full Changelog**: https://github.com/spatie/url/compare/2.0.5...2.1.0
+
 ## 2.0.5 - 2022-02-16
 
 ## What's Changed
