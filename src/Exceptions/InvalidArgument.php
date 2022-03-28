@@ -8,7 +8,7 @@ class InvalidArgument extends InvalidArgumentException
 {
     public static function invalidScheme(string $url): static
     {
-        return new static("The scheme `{$url}` isn't valid. It should be either `http` or `https`.");
+        return new static("The scheme `{$url}` isn't valid. It should be either `http`, `https`, `mailto` or `tel`.");
     }
 
     public static function invalidUrl(string $url): static

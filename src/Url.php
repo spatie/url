@@ -27,7 +27,7 @@ class Url implements UriInterface, Stringable
 
     protected string $fragment = '';
 
-    public const VALID_SCHEMES = ['http', 'https', 'mailto'];
+    public const VALID_SCHEMES = ['http', 'https', 'mailto', 'tel'];
 
     public function __construct()
     {
@@ -315,11 +315,11 @@ class Url implements UriInterface, Stringable
     {
         $url = '';
 
-        if ($this->getScheme() !== '' && $this->getScheme() !== 'mailto') {
+        if ($this->getScheme() !== '' && ! in_array($this->getScheme(), ['mailto', 'tel'], true)) {
             $url .= $this->getScheme().'://';
         }
 
-        if ($this->getScheme() === 'mailto' && $this->getPath() !== '') {
+        if (in_array($this->getScheme(), ['mailto', 'tel'], true) && $this->getPath() !== '') {
             $url .= $this->getScheme().':';
         }
 
@@ -332,7 +332,7 @@ class Url implements UriInterface, Stringable
         }
 
         if ($this->getPath() !== '/') {
-            $path = $this->getScheme() === 'mailto'
+            $path = in_array($this->getScheme(), ['mailto', 'tel'], true)
                 ? ltrim($this->getPath(), '/')
                 : $this->getPath();
 
