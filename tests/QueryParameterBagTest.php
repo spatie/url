@@ -1,132 +1,108 @@
 <?php
 
-namespace Spatie\Url\Test;
-
-use PHPUnit\Framework\TestCase;
 use Spatie\Url\QueryParameterBag;
 
-class QueryParameterBagTest extends TestCase
-{
-    /** @test */
-    public function it_can_get_a_parameter()
-    {
-        $queryParameterBag = new QueryParameterBag(['offset' => 10]);
+it('can get a parameter', function () {
+    $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
-        $this->assertEquals(10, $queryParameterBag->get('offset'));
-    }
+    expect($queryParameterBag)->get('offset')->toEqual(10);
+});
 
-    /** @test */
-    public function it_returns_null_if_a_parameter_doesnt_exist()
-    {
-        $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
-        $this->assertNull($queryParameterBag->get('limit'));
-    }
+it('returns null if a parameter doesnt exist', function () {
+    $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
-    /** @test */
-    public function it_can_return_a_default_if_a_parameter_doesnt_exist()
-    {
-        $queryParameterBag = new QueryParameterBag(['offset' => 10]);
+    expect($queryParameterBag)->get('limit')->toBeNull();
+});
 
-        $this->assertEquals(20, $queryParameterBag->get('limit', 20));
-    }
 
-    /** @test */
-    public function it_can_return_all_parameters()
-    {
-        $queryParameterBag = new QueryParameterBag(['offset' => 10]);
+it('can return a default if a parameter doesnt exist', function () {
+    $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
-        $this->assertEquals(['offset' => 10], $queryParameterBag->all());
-    }
+    expect($queryParameterBag)->get('limit', 20)->toEqual(20);
+});
 
-    /** @test */
-    public function it_can_set_a_string_parameter()
-    {
-        $queryParameterBag = new QueryParameterBag([]);
 
-        $queryParameterBag->set('offset', 10);
+it('can_return_all_parameters', function () {
+    $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
-        $this->assertSame('10', $queryParameterBag->get('offset'));
-    }
+    expect($queryParameterBag)->all()->toEqual(['offset' => 10]);
+});
 
-    /** @test */
-    public function it_can_set_an_array_parameter()
-    {
-        $queryParameterBag = new QueryParameterBag([]);
 
-        $queryParameterBag->set('range', [10, 20]);
+it('can set a string parameter', function () {
+    $queryParameterBag = new QueryParameterBag([]);
 
-        $this->assertSame([10, 20], $queryParameterBag->get('range'));
-    }
+    $queryParameterBag->set('offset', 10);
 
-    /** @test */
-    public function it_can_check_if_it_has_a_parameter()
-    {
-        $queryParameterBag = new QueryParameterBag(['offset' => 10]);
+    expect($queryParameterBag)->get('offset')->toEqual(10);
+});
 
-        $this->assertTrue($queryParameterBag->has('offset'));
-        $this->assertFalse($queryParameterBag->has('limit'));
-    }
+it('can set an array parameter', function () {
+    $queryParameterBag = new QueryParameterBag([]);
 
-    /** @test */
-    public function it_can_unset_a_parameter()
-    {
-        $queryParameterBag = new QueryParameterBag(['offset' => 10]);
+    $queryParameterBag->set('range', [10, 20]);
 
-        $queryParameterBag->unset('offset');
+    expect($queryParameterBag)->get('range')->toEqual([10, 20]);
+});
 
-        $this->assertFalse($queryParameterBag->has('offset'));
-    }
 
-    /** @test */
-    public function it_can_be_created_from_a_string()
-    {
-        $queryParameterBag = QueryParameterBag::fromString('offset=10&limit=20');
+it('can check if it has a parameter', function () {
+    $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
-        $this->assertSame('10', $queryParameterBag->get('offset'));
-        $this->assertSame('20', $queryParameterBag->get('limit'));
-    }
+    expect($queryParameterBag)->has('offset')->toBeTrue();
+    expect($queryParameterBag)->has('limit')->toBeFalse();
+});
 
-    /** @test */
-    public function it_can_be_created_from_an_empty_string()
-    {
-        $queryParameterBag = QueryParameterBag::fromString('');
 
-        $this->assertEquals([], $queryParameterBag->all());
-    }
+it('can unset a parameter', function () {
+    $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
-    /** @test */
-    public function it_can_be_casted_to_a_string()
-    {
-        $queryParameterBag = QueryParameterBag::fromString('offset=10&limit=20');
+    $queryParameterBag->unset('offset');
 
-        $this->assertEquals('offset=10&limit=20', $queryParameterBag->__toString());
-    }
+    expect($queryParameterBag)->has('offset')->toBeFalse();
+});
 
-    /** @test */
-    public function it_can_be_created_from_a_string_with_url_encoded_values()
-    {
-        $queryParameterBag = QueryParameterBag::fromString(
-            'category=storage%20furniture&discount=%3E40%25%20off&range%5B0%5D=10&range%5B1%5D=20'
-        );
 
-        $this->assertEquals('storage furniture', $queryParameterBag->get('category'));
-        $this->assertEquals('>40% off', $queryParameterBag->get('discount'));
-        $this->assertEquals([10, 20], $queryParameterBag->get('range'));
-    }
+it('can be created from a string', function () {
+    $queryParameterBag = QueryParameterBag::fromString('offset=10&limit=20');
 
-    /** @test */
-    public function it_url_encodes_values_when_being_casted_to_a_string()
-    {
-        $queryParameterBag = new QueryParameterBag([]);
+    expect($queryParameterBag)->get('offset')->toEqual('10');
+    expect($queryParameterBag)->get('limit')->toEqual('20');
+});
 
-        $queryParameterBag->set('category', 'storage furniture');
-        $queryParameterBag->set('discount', '>40% off');
-        $queryParameterBag->set('range', [10, 20]);
 
-        $this->assertEquals(
-            'category=storage%20furniture&discount=%3E40%25%20off&range%5B0%5D=10&range%5B1%5D=20',
-            $queryParameterBag->__toString()
-        );
-    }
-}
+it('can be created from an empty string', function () {
+    $queryParameterBag = QueryParameterBag::fromString('');
+
+    expect($queryParameterBag)->all()->toEqual([]);
+});
+
+
+it('can be casted to a string', function () {
+    $queryParameterBag = QueryParameterBag::fromString('offset=10&limit=20');
+
+    expect($queryParameterBag)->__toString()->toEqual('offset=10&limit=20');
+});
+
+
+it('can be created from a string with url encoded values', function () {
+    $queryParameterBag = QueryParameterBag::fromString(
+        'category=storage%20furniture&discount=%3E40%25%20off&range%5B0%5D=10&range%5B1%5D=20'
+    );
+
+    expect($queryParameterBag)->get('category')->toEqual('storage furniture');
+    expect($queryParameterBag)->get('discount')->toEqual('>40% off');
+    expect($queryParameterBag)->get('range')->toEqual([10, 20]);
+});
+
+
+it('url encodes values when being casted to a string', function () {
+    $queryParameterBag = new QueryParameterBag([]);
+
+    $queryParameterBag->set('category', 'storage furniture');
+    $queryParameterBag->set('discount', '>40% off');
+    $queryParameterBag->set('range', [10, 20]);
+
+    expect($queryParameterBag)->__toString()->toEqual('category=storage%20furniture&discount=%3E40%25%20off&range%5B0%5D=10&range%5B1%5D=20');
+});

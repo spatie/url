@@ -1,171 +1,139 @@
 <?php
 
-namespace Spatie\Url\Test;
-
-use PHPUnit\Framework\TestCase;
 use Spatie\Url\Exceptions\InvalidArgument;
 use Spatie\Url\Url;
 
-class UrlParseTest extends TestCase
-{
-    /** @test */
-    public function it_can_parse_a_scheme()
-    {
-        $url = Url::fromString('https://spatie.be');
+it('can parse a scheme', function () {
+    $url = Url::fromString('https://spatie.be');
 
-        $this->assertEquals('https', $url->getScheme());
-    }
+    expect($url)->getScheme()->toEqual('https');
+});
 
-    /** @test */
-    public function it_can_parse_a_scheme_that_uses_incorrect_casing()
-    {
-        $url = Url::fromString('HTTPS://SPATIE.BE');
 
-        $this->assertEquals('https', $url->getScheme());
-    }
+it('can parse a scheme that uses incorrect casing', function () {
+    $url = Url::fromString('HTTPS://SPATIE.BE');
 
-    /** @test */
-    public function it_can_parse_a_scheme_with_mailto()
-    {
-        $url = Url::fromString('mailto:email@domain.tld');
+    expect($url)->getScheme()->toEqual('https');
+});
 
-        $this->assertEquals('mailto', $url->getScheme());
-    }
 
-    /** @test */
-    public function it_can_parse_a_path_with_mailto()
-    {
-        $url = Url::fromString('mailto:email@domain.tld');
+it('can parse a scheme with mailto', function () {
+    $url = Url::fromString('mailto:email@domain.tld');
 
-        $this->assertEquals('email@domain.tld', $url->getPath());
-    }
+    expect($url)->getScheme()->toEqual('mailto');
+});
 
-    /** @test */
-    public function it_can_parse_a_scheme_with_tel()
-    {
-        $url = Url::fromString('tel:+3112345678');
 
-        $this->assertEquals('tel', $url->getScheme());
-    }
+it('can parse a path with mailto', function () {
+    $url = Url::fromString('mailto:email@domain.tld');
 
-    /** @test */
-    public function it_can_parse_a_path_withtel()
-    {
-        $url = Url::fromString('tel:+3112345678');
+    expect($url)->getPath()->toEqual('email@domain.tld');
+});
 
-        $this->assertEquals('+3112345678', $url->getPath());
-    }
 
-    /** @test */
-    public function it_throws_an_exception_if_an_invalid_scheme_is_provided()
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage(InvalidArgument::invalidScheme('htps')->getMessage());
+it('can parse a scheme with tel', function () {
+    $url = Url::fromString('tel:+3112345678');
 
-        Url::fromString('htps://spatie.be');
-    }
+    expect($url)->getScheme()->toEqual('tel');
+});
 
-    /** @test */
-    public function it_throws_an_exception_if_a_totally_invalid_url_is_provided()
-    {
-        $this->expectException(InvalidArgument::class);
 
-        Url::fromString('///remote/fgt_lang?lang=/../../../..//////////dev/');
-    }
+it('can parse a path withtel', function () {
+    $url = Url::fromString('tel:+3112345678');
 
-    /** @test */
-    public function it_can_parse_a_host()
-    {
-        $url = Url::fromString('https://spatie.be');
+    expect($url)->getPath()->toEqual('+3112345678');
+});
 
-        $this->assertEquals('spatie.be', $url->getHost());
-    }
 
-    /** @test */
-    public function it_can_parse_a_path()
-    {
-        $url = Url::fromString('https://spatie.be/opensource');
+it('throws an exception if an invalid scheme is provided', function () {
+    Url::fromString('htps://spatie.be');
+})->throws(InvalidArgument::class, InvalidArgument::invalidScheme('htps')->getMessage());
 
-        $this->assertEquals('/opensource', $url->getPath());
-    }
 
-    /** @test */
-    public function it_preserves_a_trailing_slash_in_the_path()
-    {
-        $url = Url::fromString('https://spatie.be/opensource/');
+it('throws an exception if a totally invalid url is provided', function () {
+    Url::fromString('///remote/fgt_lang?lang=/../../../..//////////dev/');
+})->expectException(InvalidArgument::class);
 
-        $this->assertEquals('/opensource/', $url->getPath());
-    }
 
-    /** @test */
-    public function it_can_parse_an_empty_path()
-    {
-        $url = Url::fromString('https://spatie.be');
+it('can parse a host', function () {
+    $url = Url::fromString('https://spatie.be');
 
-        $this->assertEquals('/', $url->getPath());
-    }
+    expect($url)->getHost()->toEqual('spatie.be');
+});
 
-    /** @test */
-    public function it_can_parse_a_basename()
-    {
-        $url = Url::fromString('https://spatie.be/opensource/laravel');
 
-        $this->assertEquals('laravel', $url->getBasename());
-    }
+it('can parse a path', function () {
+    $url = Url::fromString('https://spatie.be/opensource');
 
-    /** @test */
-    public function it_can_parse_a_dirname()
-    {
-        $url = Url::fromString('https://spatie.be/opensource/laravel');
+    expect($url)->getPath()->toEqual('/opensource');
+});
 
-        $this->assertEquals('/opensource', $url->getDirname());
-    }
 
-    /** @test */
-    public function it_can_parse_a_dirname_if_the_dir_is_the_root()
-    {
-        $url = Url::fromString('https://spatie.be/opensource');
+it('preserves a trailing slash in the path', function () {
+    $url = Url::fromString('https://spatie.be/opensource/');
 
-        $this->assertEquals('/', $url->getDirname());
-    }
+    expect($url)->getPath()->toEqual('/opensource/');
+});
 
-    /** @test */
-    public function it_can_parse_a_relative_url()
-    {
-        $url = Url::fromString('/opensource');
 
-        $this->assertEquals('/opensource', $url->getPath());
-    }
+it('can parse an empty path', function () {
+    $url = Url::fromString('https://spatie.be');
 
-    /** @test */
-    public function it_can_parse_a_query()
-    {
-        $url = Url::fromString('https://spatie.be?utm_source=phpunit');
+    expect($url)->getPath()->toEqual('/');
+});
 
-        $this->assertEquals('utm_source=phpunit', $url->getQuery());
-    }
 
-    /** @test */
-    public function it_can_parse_a_fragment()
-    {
-        $url = Url::fromString('https://spatie.be#bottom-of-page');
+it('can parse a basename', function () {
+    $url = Url::fromString('https://spatie.be/opensource/laravel');
 
-        $this->assertEquals('bottom-of-page', $url->getFragment());
-    }
+    expect($url)->getBasename()->toEqual('laravel');
+});
 
-    /** @test */
-    public function it_can_parse_user_info()
-    {
-        $url = Url::fromString('https://sebastian:supersecret@spatie.be');
 
-        $this->assertEquals('sebastian:supersecret', $url->getUserInfo());
-    }
+it('can parse a dirname', function () {
+    $url = Url::fromString('https://spatie.be/opensource/laravel');
 
-    /** @test */
-    public function it_can_parse_the_authority()
-    {
-        $url = Url::fromString('https://sebastian:supersecret@spatie.be:9000/opensource');
+    expect($url)->getDirname()->toEqual('/opensource');
+});
 
-        $this->assertEquals('sebastian:supersecret@spatie.be:9000', $url->getAuthority());
-    }
-}
+
+it('can parse a dirname if the dir is the root', function () {
+    $url = Url::fromString('https://spatie.be/opensource');
+
+    expect($url)->getDirname()->toEqual('/');
+});
+
+
+it('can parse a relative url', function () {
+    $url = Url::fromString('/opensource');
+
+    expect($url)->getPath()->toEqual('/opensource');
+});
+
+
+it('can parse a query', function () {
+    $url = Url::fromString('https://spatie.be?utm_source=phpunit');
+
+    expect($url)->getQuery()->toEqual('utm_source=phpunit');
+});
+
+
+it('can parse a fragment', function () {
+    $url = Url::fromString('https://spatie.be#bottom-of-page');
+
+    expect($url)->getFragment()->toEqual('bottom-of-page');
+});
+
+
+it('can parse user info', function () {
+    $url = Url::fromString('https://sebastian:supersecret@spatie.be');
+
+    expect($url)->getUserInfo()->toEqual('sebastian:supersecret');
+});
+
+
+it('can parse the authority', function () {
+    $url = Url::fromString('https://sebastian:supersecret@spatie.be:9000/opensource');
+
+    expect($url)->getAuthority()->toEqual('sebastian:supersecret@spatie.be:9000');
+});

@@ -1,75 +1,58 @@
 <?php
 
-namespace Spatie\Url\Test;
-
-use PHPUnit\Framework\TestCase;
 use Spatie\Url\Exceptions\InvalidArgument;
 use Spatie\Url\Url;
 
-class UrlSegmentTest extends TestCase
-{
-    /** @test */
-    public function it_can_return_all_path_segments()
-    {
-        $url = Url::create()->withPath('opensource/php');
+it('can return all path segments', function () {
+    $url = Url::create()->withPath('opensource/php');
 
-        $this->assertEquals(['opensource', 'php'], $url->getSegments());
-    }
+    expect($url)->getSegments()->toEqual(['opensource', 'php']);
+});
 
-    /** @test */
-    public function it_can_return_the_last_path_segment()
-    {
-        $url = Url::create()->withPath('opensource/php');
 
-        $this->assertEquals('php', $url->getLastSegment());
-    }
+it('can return the last path segment', function () {
+    $url = Url::create()->withPath('opensource/php');
 
-    /** @test */
-    public function it_can_return_the_first_path_segment()
-    {
-        $url = Url::create()->withPath('opensource/php');
+    $this->assertEquals('php', $url->getLastSegment());
+    expect($url)->getLastSegment()->toEqual('php');
+});
 
-        $this->assertEquals('opensource', $url->getFirstSegment());
-    }
 
-    /** @test */
-    public function it_can_return_a_path_segment()
-    {
-        $url = Url::create()->withPath('opensource/php');
+it('can return the first path segment', function () {
+    $url = Url::create()->withPath('opensource/php');
 
-        $this->assertEquals('opensource', $url->getSegment(1));
-        $this->assertEquals('php', $url->getSegment(2));
-    }
+    $this->assertEquals('opensource', $url->getFirstSegment());
+    expect($url)->getFirstSegment()->toEqual('opensource');
+});
 
-    /** @test */
-    public function it_returns_null_if_a_path_segment_doesnt_exist()
-    {
-        $url = Url::create()->withPath('opensource/php');
 
-        $this->assertNull($url->getSegment(3));
-    }
+it('can return a path segment', function () {
+    $url = Url::create()->withPath('opensource/php');
 
-    /** @test */
-    public function it_can_return_a_default_if_a_path_segment_doesnt_exist()
-    {
-        $url = Url::create()->withPath('opensource/php');
+    expect($url)->getSegment(1)->toEqual('opensource');
+    expect($url)->getSegment(2)->toEqual('php');
+});
 
-        $this->assertEquals('nothing', $url->getSegment(3, 'nothing'));
-    }
 
-    /** @test */
-    public function it_throws_an_exception_if_segment_0_gets_queried()
-    {
-        $this->expectException(InvalidArgument::class);
+it('returns null if a path segment doesnt exist', function () {
+    $url = Url::create()->withPath('opensource/php');
 
-        Url::create()->withPath('opensource/php')->getSegment(0);
-    }
+    $this->assertNull($url->getSegment(3));
+    expect($url)->getSegment(3)->toBeNull();
+});
 
-    /** @test */
-    public function it_can_return_a_path_segment_counting_from_behind()
-    {
-        $url = Url::create()->withPath('opensource/php');
+it('can return a default if a path segment doesnt exist', function () {
+    $url = Url::create()->withPath('opensource/php');
 
-        $this->assertEquals('php', $url->getSegment(-1));
-    }
-}
+    expect($url)->getSegment(3, 'nothing')->toEqual('nothing');
+});
+
+it('throws an exception if segment 0 gets queried', function () {
+    Url::create()->withPath('opensource/php')->getSegment(0);
+})->expectException(InvalidArgument::class);
+
+it('can return a path segment counting from behind', function () {
+    $url = Url::create()->withPath('opensource/php');
+
+    expect($url)->getSegment(-1)->toEqual('php');
+});

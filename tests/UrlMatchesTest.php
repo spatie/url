@@ -1,49 +1,37 @@
 <?php
 
-namespace Spatie\Url\Test;
-
-use PHPUnit\Framework\TestCase;
 use Spatie\Url\Url;
 
-class UrlMatchesTest extends TestCase
-{
-    /** @test */
-    public function it_can_check_if_it_matches_another_url()
-    {
-        $url = Url::fromString('https://spatie.be');
+it('can check if it matches another url', function () {
+    $url = Url::fromString('https://spatie.be');
 
-        $this->assertTrue($url->matches(Url::fromString('https://spatie.be/')));
-    }
+    expect($url)->matches(Url::fromString('https://spatie.be/'))->toBeTrue();
+});
 
-    /** @test */
-    public function it_can_check_if_it_doesnt_match_another_url()
-    {
-        $url = Url::fromString('https://spatie.be');
 
-        $this->assertFalse($url->matches(Url::fromString('https://spatie.be/opensource')));
-    }
+it('can check if it doesnt match another url', function () {
+    $url = Url::fromString('https://spatie.be');
 
-    /** @test */
-    public function it_differentiates_between_urls_with_trailing_slash()
-    {
-        $url = Url::fromString('https://spatie.be/opensource/');
+    expect($url)->matches(Url::fromString('https://spatie.be/opensource'))->toBeFalse();
+});
 
-        $this->assertFalse($url->matches(Url::fromString('https://spatie.be/opensource')));
-    }
 
-    /** @test */
-    public function it_can_check_if_it_contains_a_mailto()
-    {
-        $url = Url::fromString('mailto:email@domain.tld');
+it('differentiates between urls with trailing slash', function () {
+    $url = Url::fromString('https://spatie.be/opensource/');
 
-        $this->assertTrue($url->matches(Url::fromString('mailto:email@domain.tld')));
-    }
+    expect($url)->matches(Url::fromString('https://spatie.be/opensource'))->toBeFalse();
+});
 
-    /** @test */
-    public function it_can_check_if_it_contains_a_tel()
-    {
-        $url = Url::fromString('tel:+3112345678');
 
-        $this->assertTrue($url->matches(Url::fromString('tel:+3112345678')));
-    }
-}
+it('can check if it contains a mailto', function () {
+    $url = Url::fromString('mailto:email@domain.tld');
+
+    expect($url)->matches(Url::fromString('mailto:email@domain.tld'))->toBeTrue();
+});
+
+
+it('can check if it contains a tel', function () {
+    $url = Url::fromString('tel:+3112345678');
+
+    expect($url)->matches(Url::fromString('tel:+3112345678'))->toBeTrue();
+});

@@ -1,102 +1,84 @@
 <?php
 
-namespace Spatie\Url\Test;
-
-use PHPUnit\Framework\TestCase;
 use Spatie\Url\Url;
 
-class UrlQueryParametersTest extends TestCase
-{
-    /** @test */
-    public function it_can_get_a_query_parameter()
-    {
-        $url = Url::create()->withQuery('offset=10');
+it('can get a query parameter', function () {
+    $url = Url::create()->withQuery('offset=10');
 
-        $this->assertSame('10', $url->getQueryParameter('offset'));
-    }
+    expect($url)->getQueryParameter('offset')->toEqual('10');
+});
 
-    /** @test */
-    public function it_returns_null_if_a_query_parameter_doesnt_exist()
-    {
-        $url = Url::create()->withQuery('offset=10');
 
-        $this->assertNull($url->getQueryParameter('limit'));
-    }
+it('returns null if a query parameter doesnt exist', function () {
+    $url = Url::create()->withQuery('offset=10');
 
-    /** @test */
-    public function it_can_return_a_default_if_a_query_parameter_doesnt_exist()
-    {
-        $url = Url::create()->withQuery('offset=10');
+    expect($url)->getQueryParameter('limit')->toBeNull();
+});
 
-        $this->assertEquals(20, $url->getQueryParameter('limit', 20));
-    }
 
-    /** @test */
-    public function it_can_return_all_parameters()
-    {
-        $url = Url::create()->withQuery('offset=10');
+it('can return a default if a query parameter doesnt exist', function () {
+    $url = Url::create()->withQuery('offset=10');
 
-        $this->assertEquals(['offset' => 10], $url->getAllQueryParameters());
-    }
+    expect($url)->getQueryParameter('limit', 20)->toEqual(20);
+});
 
-    /** @test */
-    public function it_can_set_a_query_parameter()
-    {
-        $url = Url::create()->withQueryParameter('offset', 10);
 
-        $this->assertSame('10', $url->getQueryParameter('offset'));
-    }
+it('can return all parameters', function () {
+    $url = Url::create()->withQuery('offset=10');
 
-    /** @test */
-    public function it_can_set_multiple_query_parameters()
-    {
-        $url = Url::create()->withQueryParameters(['offset' => 10, 'limit' => 5]);
+    expect($url)->getAllQueryParameters()->toEqual(['offset' => 10]);
+});
 
-        $this->assertEquals('10', $url->getQueryParameter('offset'));
-        $this->assertEquals('5', $url->getQueryParameter('limit'));
-    }
 
-    /** @test */
-    public function it_merges_multiple_query_parameters()
-    {
-        $url = Url::create()->withQuery('offset=10')->withQueryParameters(['limit' => 5]);
+it('can set a query parameter', function () {
+    $url = Url::create()->withQueryParameter('offset', 10);
 
-        $this->assertTrue($url->hasQueryParameter('offset'));
-        $this->assertTrue($url->hasQueryParameter('limit'));
-    }
+    expect($url)->getQueryParameter('offset')->toEqual('10');
+});
 
-    /** @test */
-    public function it_can_check_if_it_has_a_query_parameter()
-    {
-        $url = Url::create()->withQuery('offset=10');
 
-        $this->assertTrue($url->hasQueryParameter('offset'));
-        $this->assertFalse($url->hasQueryParameter('limit'));
-    }
+it('can set multiple query parameters', function () {
+    $url = Url::create()->withQueryParameters(['offset' => 10, 'limit' => 5]);
 
-    /** @test */
-    public function it_can_unset_a_query_parameter()
-    {
-        $url = Url::create()
-            ->withQuery('offset=10')
-            ->withoutQueryParameter('offset');
+    expect($url)->getQueryParameter('offset')->toEqual('10');
+    expect($url)->getQueryParameter('limit')->toEqual('5');
+});
 
-        $this->assertFalse($url->hasQueryParameter('offset'));
-    }
 
-    /** @test */
-    public function it_can_handle_empty_query_parameters()
-    {
-        $url = Url::create()->withQuery('offset');
+it('merges multiple query parameters', function () {
+    $url = Url::create()->withQuery('offset=10')->withQueryParameters(['limit' => 5]);
 
-        $this->assertTrue($url->hasQueryParameter('offset'));
-    }
+    expect($url)->hasQueryParameter('offset')->toBeTrue();
+    expect($url)->hasQueryParameter('limit')->toBeTrue();
+});
 
-    /** @test */
-    public function empty_query_parameters_default_to_null()
-    {
-        $url = Url::create()->withQuery('offset');
 
-        $this->assertNull($url->getQueryParameter('offset'));
-    }
-}
+it('can check if it has a query parameter', function () {
+    $url = Url::create()->withQuery('offset=10');
+
+    expect($url)->hasQueryParameter('offset')->toBeTrue();
+    expect($url)->hasQueryParameter('limit')->toBeFalse();
+});
+
+
+it('can unset a query parameter', function () {
+    $url = Url::create()
+              ->withQuery('offset=10')
+              ->withoutQueryParameter('offset');
+
+    expect($url)->hasQueryParameter('offset')->toBeFalse();
+});
+
+
+it('can handle empty query parameters', function () {
+    $url = Url::create()->withQuery('offset');
+
+    expect($url)->hasQueryParameter('offset')->toBeTrue();
+});
+
+
+test('empty query parameters default to null', function () {
+    $url = Url::create()->withQuery('offset');
+
+    expect($url)->getQueryParameter('offset')->toBeNull();
+});
