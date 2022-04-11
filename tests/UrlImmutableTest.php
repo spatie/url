@@ -1,108 +1,92 @@
 <?php
 
-namespace Spatie\Url\Test;
-
-use PHPUnit\Framework\TestCase;
 use Spatie\Url\Url;
 
-class UrlImmutableTest extends TestCase
-{
-    /** @test */
-    public function with_scheme_returns_a_new_instance()
-    {
-        $url = Url::fromString('http://spatie.be');
+test('with scheme returns a new instance', function () {
+    $url = Url::fromString('http://spatie.be');
 
-        $clone = $url->withScheme('https');
+    $clone = $url->withScheme('https');
 
-        $this->assertEquals('http', $url->getScheme());
-        $this->assertEquals('https', $clone->getScheme());
-    }
+    expect($url)->getScheme()->toEqual('http');
+    expect($clone)->getScheme()->toEqual('https');
+});
 
-    /** @test */
-    public function with_user_info_returns_a_new_instance()
-    {
-        $url = Url::fromString('https://spatie.be');
 
-        $clone = $url->withUserInfo('sebastian', 'supersecret');
+test('with user info returns a new instance', function () {
+    $url = Url::fromString('https://spatie.be');
 
-        $this->assertEquals('', $url->getUserInfo());
-        $this->assertEquals('sebastian:supersecret', $clone->getUserInfo());
-    }
+    $clone = $url->withUserInfo('sebastian', 'supersecret');
 
-    /** @test */
-    public function with_host_returns_a_new_instance()
-    {
-        $url = Url::fromString('https://spatie.be');
+    expect($url)->getUserInfo()->toEqual('');
+    expect($clone)->getUserInfo()->toEqual('sebastian:supersecret');
+});
 
-        $clone = $url->withHost('sebastiandedeyne.com');
 
-        $this->assertEquals('spatie.be', $url->getHost());
-        $this->assertEquals('sebastiandedeyne.com', $clone->getHost());
-    }
+test('with host returns a new instance', function () {
+    $url = Url::fromString('https://spatie.be');
 
-    /** @test */
-    public function with_port_returns_a_new_instance()
-    {
-        $url = Url::fromString('https://spatie.be');
+    $clone = $url->withHost('sebastiandedeyne.com');
 
-        $clone = $url->withPort(9000);
+    expect($url)->getHost()->toEqual('spatie.be');
+    expect($clone)->getHost()->toEqual('sebastiandedeyne.com');
+});
 
-        $this->assertNull($url->getPort());
-        $this->assertEquals(9000, $clone->getPort());
-    }
 
-    /** @test */
-    public function with_path_returns_a_new_instance()
-    {
-        $url = Url::fromString('https://spatie.be');
+test('with port returns a new instance', function () {
+    $url = Url::fromString('https://spatie.be');
 
-        $clone = $url->withPath('/opensource');
+    $clone = $url->withPort(9000);
 
-        $this->assertEquals('/', $url->getPath());
-        $this->assertEquals('/opensource', $clone->getPath());
-    }
+    expect($url)->getPort()->toBeNull();
+    expect($clone)->getPort()->toEqual(9000);
+});
 
-    /** @test */
-    public function with_query_returns_a_new_instance()
-    {
-        $url = Url::fromString('https://spatie.be');
 
-        $clone = $url->withQuery('utm_source=phpunit');
+test('with path returns a new instance', function () {
+    $url = Url::fromString('https://spatie.be');
 
-        $this->assertEquals('', $url->getQuery());
-        $this->assertEquals('utm_source=phpunit', $clone->getQuery());
-    }
+    $clone = $url->withPath('/opensource');
 
-    /** @test */
-    public function with_query_parameter_returns_a_new_instance()
-    {
-        $url = Url::fromString('https://spatie.be');
+    expect($url)->getPath()->toEqual('/');
+    expect($clone)->getPath()->toEqual('/opensource');
+});
 
-        $clone = $url->withQueryParameter('utm_source', 'phpunit');
 
-        $this->assertEquals('', $url->getQuery());
-        $this->assertEquals('utm_source=phpunit', $clone->getQuery());
-    }
+test('with query returns a new instance', function () {
+    $url = Url::fromString('https://spatie.be');
 
-    /** @test */
-    public function withput_query_parameter_returns_a_new_instance()
-    {
-        $url = Url::fromString('https://spatie.be')->withQueryParameter('utm_source', 'phpunit');
+    $clone = $url->withQuery('utm_source=phpunit');
 
-        $clone = $url->withoutQueryParameter('utm_source');
+    expect($url)->getQuery()->toEqual('');
+    expect($clone)->getQuery()->toEqual('utm_source=phpunit');
+});
 
-        $this->assertEquals('utm_source=phpunit', $url->getQuery());
-        $this->assertEquals('', $clone->getQuery());
-    }
 
-    /** @test */
-    public function with_fragment_returns_a_new_instance()
-    {
-        $url = Url::fromString('https://spatie.be');
+test('with query parameter returns a new instance', function () {
+    $url = Url::fromString('https://spatie.be');
 
-        $clone = $url->withFragment('bottom-of-page');
+    $clone = $url->withQueryParameter('utm_source', 'phpunit');
 
-        $this->assertEquals('', $url->getFragment());
-        $this->assertEquals('bottom-of-page', $clone->getFragment());
-    }
-}
+    expect($url)->getQuery()->toEqual('');
+    expect($clone)->getQuery()->toEqual('utm_source=phpunit');
+});
+
+
+test('withput query parameter returns a new instance', function () {
+    $url = Url::fromString('https://spatie.be')->withQueryParameter('utm_source', 'phpunit');
+
+    $clone = $url->withoutQueryParameter('utm_source');
+
+    expect($url)->getQuery()->toEqual('utm_source=phpunit');
+    expect($clone)->getQuery()->toEqual('');
+});
+
+
+test('with fragment returns a new instance', function () {
+    $url = Url::fromString('https://spatie.be');
+
+    $clone = $url->withFragment('bottom-of-page');
+
+    expect($url)->getFragment()->toEqual('');
+    expect($clone)->getFragment()->toEqual('bottom-of-page');
+});
