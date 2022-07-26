@@ -75,6 +75,11 @@ it('can unset all query parameters', function () {
         ->withoutQueryParameters();
 
     expect($url)->getAllQueryParameters()->toEqual([]);
+
+    $url = Url::fromString('https://example.com?foo=bar')
+        ->withoutQueryParameters();
+
+    expect((string) $url)->toEqual('https://example.com');
 });
 
 
