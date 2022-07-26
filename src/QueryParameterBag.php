@@ -47,6 +47,13 @@ class QueryParameterBag implements \Stringable
         return $this;
     }
 
+    public function unsetAll(): self
+    {
+        $this->parameters = [];
+
+        return $this;
+    }
+
     public function all(): array
     {
         return $this->parameters;

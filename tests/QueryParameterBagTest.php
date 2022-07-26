@@ -106,3 +106,11 @@ it('url encodes values when being casted to a string', function () {
 
     expect($queryParameterBag)->__toString()->toEqual('category=storage%20furniture&discount=%3E40%25%20off&range%5B0%5D=10&range%5B1%5D=20');
 });
+
+it('unsets all query parameters', function () {
+   $queryParameterBag = QueryParameterBag::fromString(
+       'category=storage%20furniture&discount=%3E40%25%20off&range%5B0%5D=10&range%5B1%5D=20'
+   )->unsetAll();
+
+   expect($queryParameterBag)->all()->toEqual([]);
+});
