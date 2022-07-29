@@ -2,6 +2,20 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.1.1 - 2022-07-29
+
+### What's Changed
+
+- Rewrite tests using pest by @bvtterfly in https://github.com/spatie/url/pull/54
+- Add withoutQueryParameters & unsetAll method by @MatusBoa in https://github.com/spatie/url/pull/56
+
+### New Contributors
+
+- @bvtterfly made their first contribution in https://github.com/spatie/url/pull/54
+- @MatusBoa made their first contribution in https://github.com/spatie/url/pull/56
+
+**Full Changelog**: https://github.com/spatie/url/compare/2.1.0...2.1.1
+
 ## 2.1.0 - 2022-03-28
 
 ## What's Changed
