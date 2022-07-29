@@ -165,6 +165,14 @@ class Url implements UriInterface, Stringable
         return $url;
     }
 
+    public function withoutQueryParameters(): static
+    {
+        $url = clone $this;
+        $url->query->unsetAll();
+
+        return $url;
+    }
+
     public function getFragment(): string
     {
         return $this->fragment;

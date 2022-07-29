@@ -69,6 +69,19 @@ it('can unset a query parameter', function () {
     expect($url)->hasQueryParameter('offset')->toBeFalse();
 });
 
+it('can unset all query parameters', function () {
+    $url = Url::create()
+        ->withQuery('offset=10')
+        ->withoutQueryParameters();
+
+    expect($url)->getAllQueryParameters()->toEqual([]);
+
+    $url = Url::fromString('https://example.com?foo=bar')
+        ->withoutQueryParameters();
+
+    expect((string) $url)->toEqual('https://example.com');
+});
+
 
 it('can handle empty query parameters', function () {
     $url = Url::create()->withQuery('offset');
