@@ -1,12 +1,11 @@
 {
     "name": "spatie/url",
     "description": "Parse, build and manipulate URL's",
+    "license": "MIT",
     "keywords": [
         "spatie",
         "url"
     ],
-    "homepage": "https://github.com/spatie/url",
-    "license": "MIT",
     "authors": [
         {
             "name": "Sebastian De Deyne",
@@ -15,6 +14,7 @@
             "role": "Developer"
         }
     ],
+    "homepage": "https://github.com/spatie/url",
     "require": {
         "php": "^8.0",
         "psr/http-message": "^1.0",
@@ -23,6 +23,8 @@
     "require-dev": {
         "pestphp/pest": "^1.21"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Spatie\\Url\\": "src"
@@ -33,16 +35,14 @@
             "Spatie\\Url\\Test\\": "tests"
         }
     },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "sort-packages": true
+    },
     "scripts": {
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage-html coverage"
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
