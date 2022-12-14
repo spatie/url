@@ -2,6 +2,22 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.2.0 - 2022-12-14
+
+### What's Changed
+
+- Update .gitattributes by @angeljqv in https://github.com/spatie/url/pull/58
+- Normalize composer.json by @patinthehat in https://github.com/spatie/url/pull/59
+- Add PHP 8.2 Support by @patinthehat in https://github.com/spatie/url/pull/60
+- lazy evaluate Url::getQueryParameter default argument by @bryanlopezinc in https://github.com/spatie/url/pull/61
+
+### New Contributors
+
+- @angeljqv made their first contribution in https://github.com/spatie/url/pull/58
+- @bryanlopezinc made their first contribution in https://github.com/spatie/url/pull/61
+
+**Full Changelog**: https://github.com/spatie/url/compare/2.1.1...2.2.0
+
 ## 2.1.1 - 2022-07-29
 
 ### What's Changed
