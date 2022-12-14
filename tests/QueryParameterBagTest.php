@@ -20,6 +20,9 @@ it('can return a default if a parameter doesnt exist', function () {
     $queryParameterBag = new QueryParameterBag(['offset' => 10]);
 
     expect($queryParameterBag)->get('limit', 20)->toEqual(20);
+    expect($queryParameterBag)->get('limit', function () {
+        return 100;
+    })->toEqual(100);
 });
 
 

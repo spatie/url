@@ -20,6 +20,9 @@ it('can return a default if a query parameter doesnt exist', function () {
     $url = Url::create()->withQuery('offset=10');
 
     expect($url)->getQueryParameter('limit', 20)->toEqual(20);
+    expect($url)->getQueryParameter('limit', function () {
+        return 100;
+    })->toEqual(100);
 });
 
 
