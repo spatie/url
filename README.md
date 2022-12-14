@@ -36,7 +36,15 @@ Retrieve and transform query parameters:
 $url = Url::fromString('https://spatie.be/opensource?utm_source=github&utm_campaign=packages');
 
 echo $url->getQuery(); // 'utm_source=github&utm_campaign=packages'
+
 echo $url->getQueryParameter('utm_source'); // 'github'
+echo $url->getQueryParameter('utm_medium'); // null
+echo $url->getQueryParameter('utm_medium', 'social'); // 'social'
+echo $url->getQueryParameter('utm_medium', function() {
+    //some logic
+    return 'email';
+}); // 'email'
+
 echo $url->withoutQueryParameter('utm_campaign'); // 'https://spatie.be/opensource?utm_source=github'
 echo $url->withQueryParameters(['utm_campaign' => 'packages']); // 'https://spatie.be/opensource?utm_source=github&utm_campaign=packages'
 ```

@@ -25,7 +25,11 @@ class QueryParameterBag implements \Stringable
 
     public function get(string $key, mixed $default = null): mixed
     {
-        return $this->parameters[$key] ?? $default;
+        if ($this->has($key)) {
+            return $this->parameters[$key];
+        }
+
+        return is_callable($default) ? $default() : $default;
     }
 
     public function has(string $key): bool
