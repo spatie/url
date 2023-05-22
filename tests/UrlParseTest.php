@@ -38,10 +38,16 @@ it('can parse a scheme with tel', function () {
 });
 
 
-it('can parse a path withtel', function () {
+it('can parse a path with tel', function () {
     $url = Url::fromString('tel:+3112345678');
 
     expect($url)->getPath()->toEqual('+3112345678');
+});
+
+it('can parse a path with ws', function () {
+    $url = Url::fromString('ws://localhost/ws');
+
+    expect($url)->getPath()->toEqual('localhost');
 });
 
 

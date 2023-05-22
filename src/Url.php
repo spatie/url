@@ -11,6 +11,8 @@ class Url implements UriInterface, Stringable
 {
     use Macroable;
 
+    private static array $validSchemes = ['http', 'https', 'mailto', 'tel', 'ws', 'wss'];
+
     protected string $scheme = '';
 
     protected string $host = '';
@@ -27,7 +29,6 @@ class Url implements UriInterface, Stringable
 
     protected string $fragment = '';
 
-    public const VALID_SCHEMES = ['http', 'https', 'mailto', 'tel'];
 
     public function __construct()
     {
@@ -226,7 +227,7 @@ class Url implements UriInterface, Stringable
     {
         $scheme = strtolower($scheme);
 
-        if (! in_array($scheme, static::VALID_SCHEMES)) {
+        if (! in_array($scheme, self::$validSchemes)) {
             throw InvalidArgument::invalidScheme($scheme);
         }
 
@@ -361,5 +362,13 @@ class Url implements UriInterface, Stringable
     public function __clone()
     {
         $this->query = clone $this->query;
+    }
+
+    public static function addValidScheme(string $scheme) {
+        self::$validSchemes[] = $scheme;
+    }
+
+    public static function setValidSchemes(array $schemes) {
+        self::$validSchemes = $schemes;
     }
 }
