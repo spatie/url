@@ -42,18 +42,18 @@ class Url implements UriInterface, Stringable
 
     public static function fromString(string $url): static
     {
-        if (! $parts = parse_url($url)) {
+        if (!$parts = parse_url($url)) {
             throw InvalidArgument::invalidUrl($url);
         }
 
-        $url = new static();
-        $url->scheme = isset($parts['scheme']) ? $url->sanitizeScheme($parts['scheme']) : '';
-        $url->host = $parts['host'] ?? '';
-        $url->port = $parts['port'] ?? null;
-        $url->user = $parts['user'] ?? '';
+        $url           = new static();
+        $url->scheme   = isset($parts['scheme']) ? $url->sanitizeScheme($parts['scheme']) : '';
+        $url->host     = $parts['host'] ?? '';
+        $url->port     = $parts['port'] ?? null;
+        $url->user     = $parts['user'] ?? '';
         $url->password = $parts['pass'] ?? null;
-        $url->path = $parts['path'] ?? '/';
-        $url->query = QueryParameterBag::fromString($parts['query'] ?? '');
+        $url->path     = $parts['path'] ?? '/';
+        $url->query    = QueryParameterBag::fromString($parts['query'] ?? '');
         $url->fragment = $parts['fragment'] ?? '';
 
         return $url;
@@ -69,11 +69,11 @@ class Url implements UriInterface, Stringable
         $authority = $this->host;
 
         if ($this->getUserInfo()) {
-            $authority = $this->getUserInfo().'@'.$authority;
+            $authority = $this->getUserInfo() . '@' . $authority;
         }
 
         if ($this->port !== null) {
-            $authority .= ':'.$this->port;
+            $authority .= ':' . $this->port;
         }
 
         return $authority;
@@ -84,7 +84,7 @@ class Url implements UriInterface, Stringable
         $userInfo = $this->user;
 
         if ($this->password !== null) {
-            $userInfo .= ':'.$this->password;
+            $userInfo .= ':' . $this->password;
         }
 
         return $userInfo;
@@ -116,12 +116,12 @@ class Url implements UriInterface, Stringable
 
         array_pop($segments);
 
-        return '/'.implode('/', $segments);
+        return '/' . implode('/', $segments);
     }
 
     public function getQuery(): string
     {
-        return (string) $this->query;
+        return (string)$this->query;
     }
 
     public function getQueryParameter(string $key, mixed $default = null): mixed
@@ -152,7 +152,7 @@ class Url implements UriInterface, Stringable
     public function withQueryParameters(array $parameters): static
     {
         $parameters = array_merge($this->getAllQueryParameters(), $parameters);
-        $url = clone $this;
+        $url        = clone $this;
         $url->query = new QueryParameterBag($parameters);
 
         return $url;
@@ -194,7 +194,7 @@ class Url implements UriInterface, Stringable
 
         if ($index < 0) {
             $segments = array_reverse($segments);
-            $index = abs($index);
+            $index    = abs($index);
         }
 
         return $segments[$index - 1] ?? $default;
@@ -227,7 +227,7 @@ class Url implements UriInterface, Stringable
     {
         $scheme = strtolower($scheme);
 
-        if (! in_array($scheme, self::$validSchemes)) {
+        if (!in_array($scheme, self::$validSchemes)) {
             throw InvalidArgument::invalidScheme($scheme);
         }
 
@@ -238,7 +238,7 @@ class Url implements UriInterface, Stringable
     {
         $url = clone $this;
 
-        $url->user = $user;
+        $url->user     = $user;
         $url->password = $password;
 
         return $url;
@@ -266,8 +266,8 @@ class Url implements UriInterface, Stringable
     {
         $url = clone $this;
 
-        if (! str_starts_with($path, '/')) {
-            $path = '/'.$path;
+        if (!str_starts_with($path, '/')) {
+            $path = '/' . $path;
         }
 
         $url->path = $path;
@@ -279,11 +279,11 @@ class Url implements UriInterface, Stringable
     {
         $dirname = trim($dirname, '/');
 
-        if (! $this->getBasename()) {
+        if (!$this->getBasename()) {
             return $this->withPath($dirname);
         }
 
-        return $this->withPath($dirname.'/'.$this->getBasename());
+        return $this->withPath($dirname . '/' . $this->getBasename());
     }
 
     public function withBasename(string $basename): static
@@ -291,10 +291,10 @@ class Url implements UriInterface, Stringable
         $basename = trim($basename, '/');
 
         if ($this->getDirname() === '/') {
-            return $this->withPath('/'.$basename);
+            return $this->withPath('/' . $basename);
         }
 
-        return $this->withPath($this->getDirname().'/'.$basename);
+        return $this->withPath($this->getDirname() . '/' . $basename);
     }
 
     public function withQuery($query): static
@@ -317,19 +317,19 @@ class Url implements UriInterface, Stringable
 
     public function matches(self $url): bool
     {
-        return (string) $this === (string) $url;
+        return (string)$this === (string)$url;
     }
 
     public function __toString(): string
     {
         $url = '';
 
-        if ($this->getScheme() !== '' && ! in_array($this->getScheme(), ['mailto', 'tel'], true)) {
-            $url .= $this->getScheme().'://';
+        if ($this->getScheme() !== '' && !in_array($this->getScheme(), ['mailto', 'tel'], true)) {
+            $url .= $this->getScheme() . '://';
         }
 
         if (in_array($this->getScheme(), ['mailto', 'tel'], true) && $this->getPath() !== '') {
-            $url .= $this->getScheme().':';
+            $url .= $this->getScheme() . ':';
         }
 
         if ($this->getScheme() === '' && $this->getAuthority() !== '') {
@@ -349,11 +349,11 @@ class Url implements UriInterface, Stringable
         }
 
         if ($this->getQuery() !== '') {
-            $url .= '?'.$this->getQuery();
+            $url .= '?' . $this->getQuery();
         }
 
         if ($this->getFragment() !== '') {
-            $url .= '#'.$this->getFragment();
+            $url .= '#' . $this->getFragment();
         }
 
         return $url;
@@ -364,11 +364,13 @@ class Url implements UriInterface, Stringable
         $this->query = clone $this->query;
     }
 
-    public static function addValidScheme(string $scheme) {
-        self::$validSchemes[] = $scheme;
+    public static function addValidScheme(string ...$scheme): void
+    {
+        self::$validSchemes = array_merge(self::$validSchemes, $scheme);
     }
 
-    public static function setValidSchemes(array $schemes) {
+    public static function setValidSchemes(array $schemes): void
+    {
         self::$validSchemes = $schemes;
     }
 }

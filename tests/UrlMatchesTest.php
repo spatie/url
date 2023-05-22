@@ -35,3 +35,9 @@ it('can check if it contains a tel', function () {
 
     expect($url)->matches(Url::fromString('tel:+3112345678'))->toBeTrue();
 });
+
+it('can check if it contains a ws', function () {
+    $url = Url::fromString('ws://localhost/ws');
+
+    expect($url)->matches(Url::fromString('ws://localhost/ws'))->toBeTrue();
+});

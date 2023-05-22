@@ -47,9 +47,16 @@ it('can parse a path with tel', function () {
 it('can parse a path with ws', function () {
     $url = Url::fromString('ws://localhost/ws');
 
-    expect($url)->getPath()->toEqual('localhost');
+    expect($url)->getPath()->toEqual('/ws')
+        ->and($url)->getScheme()->toEqual('ws');
 });
 
+it('can parse a path with wss', function () {
+    $url = Url::fromString('wss://localhost/ws');
+
+    expect($url)->getPath()->toEqual('/ws')
+        ->and($url)->getScheme()->toEqual('wss');
+});
 
 it('throws an exception if an invalid scheme is provided', function () {
     Url::fromString('htps://spatie.be');
