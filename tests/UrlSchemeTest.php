@@ -18,3 +18,10 @@ it('can add custom schemes and they work', function () {
         ->and($url->withScheme('wss'))->getScheme()->toBe('wss');
 });
 
+it('can check if url is secure', function () {
+    expect(Url::fromString('ws://localhost/path')->isSecure())->toBeFalse()
+        ->and(Url::fromString('wss://localhost/path')->isSecure())->toBeTrue()
+        ->and(Url::fromString('https://localhost/path')->isSecure())->toBeTrue()
+        ->and(Url::fromString('http://localhost/path')->isSecure())->toBeFalse();
+});
+

@@ -320,6 +320,21 @@ class Url implements UriInterface, Stringable
         return (string)$this === (string)$url;
     }
 
+    public function isSecure(): bool
+    {
+        $scheme = $this->getScheme();
+
+        if(in_array($scheme, ['https', 'wss'], true)) {
+            return true;
+        }
+
+        if($this->getPort() === 443) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function __toString(): string
     {
         $url = '';
