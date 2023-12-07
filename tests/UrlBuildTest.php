@@ -2,6 +2,7 @@
 
 use Spatie\Url\Exceptions\InvalidArgument;
 use Spatie\Url\Url;
+use Spatie\Url\SchemeValidator;
 
 it('can build a url with a host', function () {
     $url = Url::create()->withHost('spatie.be');
@@ -42,7 +43,7 @@ it('can convert itself back to a string', function () {
 
 it('throws an exception when providing an invalid url scheme', function () {
     Url::create()->withScheme('htps');
-})->throws(InvalidArgument::class, InvalidArgument::invalidScheme('htps')->getMessage());
+})->throws(InvalidArgument::class, InvalidArgument::invalidScheme('htps', SchemeValidator::VALID_SCHEMES)->getMessage());
 
 
 it('can build a url with a user', function () {

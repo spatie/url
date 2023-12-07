@@ -6,9 +6,11 @@ use InvalidArgumentException;
 
 class InvalidArgument extends InvalidArgumentException
 {
-    public static function invalidScheme(string $url): static
+    public static function invalidScheme(string $scheme, array $allowedSchemes): static
     {
-        return new static("The scheme `{$url}` isn't valid. It should be either `http`, `https`, `mailto` or `tel`.");
+        $schemes = implode(', ', array_map(fn($scheme) => "`{$scheme}`", $allowedSchemes));
+
+        return new static("The scheme `{$scheme}` isn't valid. It should be either {$schemes}.");
     }
 
     public static function invalidUrl(string $url): static

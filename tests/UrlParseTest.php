@@ -2,6 +2,7 @@
 
 use Spatie\Url\Exceptions\InvalidArgument;
 use Spatie\Url\Url;
+use Spatie\Url\SchemeValidator;
 
 it('can parse a scheme', function () {
     $url = Url::fromString('https://spatie.be');
@@ -47,7 +48,7 @@ it('can parse a path withtel', function () {
 
 it('throws an exception if an invalid scheme is provided', function () {
     Url::fromString('htps://spatie.be');
-})->throws(InvalidArgument::class, InvalidArgument::invalidScheme('htps')->getMessage());
+})->throws(InvalidArgument::class, InvalidArgument::invalidScheme('htps', SchemeValidator::VALID_SCHEMES)->getMessage());
 
 
 it('throws an exception if a totally invalid url is provided', function () {
