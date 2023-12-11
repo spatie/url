@@ -2,7 +2,6 @@
 
 namespace Spatie\Url;
 
-use Spatie\Url\Contracts\Validator;
 use Spatie\Macroable\Macroable;
 use Stringable;
 
@@ -10,13 +9,13 @@ class Scheme implements Stringable
 {
     use Macroable;
 
-    private string $scheme;
+    protected string $scheme;
 
-    private Validator $validator;
+    protected SchemeValidator $validator;
 
     public function __construct(
         string $scheme = '',
-        array|null $allowedSchemes = null
+        array|null $allowedSchemes = null,
     ) {
         $this->validator = new SchemeValidator($allowedSchemes);
 

@@ -222,7 +222,7 @@ class Url implements UriInterface, Stringable
         return end($segments) ?? null;
     }
 
-    public function withScheme(string $scheme): static
+    public function withScheme($scheme): static
     {
         $url = clone $this;
 
