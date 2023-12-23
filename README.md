@@ -6,7 +6,11 @@
 
 A simple package to deal with URLs in your applications.
 
-Retrieve parts of the URL:
+## Usage
+
+### Parse and transform a URL
+
+Retrieve any part of the URL:
 
 ```php
 use Spatie\Url\Url;
@@ -18,7 +22,10 @@ echo $url->getHost(); // 'spatie.be'
 echo $url->getPath(); // '/opensource'
 ```
 
-Transform any part of the URL (the `Url` class is immutable):
+Transform any part of the URL:
+
+> **Note**
+> the `Url` class is immutable.
 
 ```php
 $url = Url::fromString('https://spatie.be/opensource');
@@ -26,6 +33,37 @@ $url = Url::fromString('https://spatie.be/opensource');
 echo $url->withHost('github.com')->withPath('spatie');
 // 'https://github.com/spatie'
 ```
+
+### Scheme
+
+Transform the URL scheme.
+```php
+$url = Url::fromString('http://spatie.be/opensource');
+
+echo $url->withScheme('https'); // 'https://spatie.be/opensource'
+```
+
+Use a list of allowed schemes.
+
+> **Note**
+> each scheme in the list will be sanitized
+
+```php
+$url = Url::fromString('https://spatie.be/opensource');
+
+echo $url->withAllowedScheme(['wss'])->withScheme('wss'); // 'wss://spatie.be/opensource'
+```
+
+or pass the list directly to `fromString` as the URL's scheme will be sanitized and validated immediately:
+
+```php
+$url = Url::fromString('https://spatie.be/opensource', [...SchemeValidator::VALID_SCHEMES, 'wss']);
+
+echo $url->withScheme('wss'); // 'wss://spatie.be/opensource'
+```
+
+
+### Query parameters
 
 Retrieve and transform query parameters:
 
@@ -46,6 +84,8 @@ echo $url->withoutQueryParameter('utm_campaign'); // 'https://spatie.be/opensour
 echo $url->withQueryParameters(['utm_campaign' => 'packages']); // 'https://spatie.be/opensource?utm_source=github&utm_campaign=packages'
 ```
 
+### Path segments
+
 Retrieve path segments:
 
 ```php
@@ -54,6 +94,8 @@ $url = Url::fromString('https://spatie.be/opensource/laravel');
 echo $url->getSegment(1); // 'opensource'
 echo $url->getSegment(2); // 'laravel'
 ```
+
+### PSR-7 `UriInterface`
 
 Implements PSR-7's `UriInterface` interface:
 
