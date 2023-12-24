@@ -6,6 +6,14 @@
 
 A simple package to deal with URLs in your applications.
 
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require spatie/url
+```
+
 ## Usage
 
 ### Parse and transform a URL
@@ -51,7 +59,7 @@ Use a list of allowed schemes.
 ```php
 $url = Url::fromString('https://spatie.be/opensource');
 
-echo $url->withAllowedScheme(['wss'])->withScheme('wss'); // 'wss://spatie.be/opensource'
+echo $url->withAllowedSchemes(['wss'])->withScheme('wss'); // 'wss://spatie.be/opensource'
 ```
 
 or pass the list directly to `fromString` as the URL's scheme will be sanitized and validated immediately:
@@ -107,6 +115,12 @@ The [`league/uri`](https://github.com/thephpleague/uri) is a more powerful packa
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
+## Testing
+
+```bash
+composer test
+```
+
 ## Support us
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/url.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/url)
@@ -114,28 +128,6 @@ Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
 We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
-## Installation
-
-You can install the package via composer:
-
-```bash
-composer require spatie/url
-```
-
-## Usage
-
-Usage is pretty straightforward. Check out the code examples at the top of this readme.
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
-## Testing
-
-```bash
-composer test
-```
 
 ## Changelog
 
