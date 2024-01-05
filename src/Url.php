@@ -11,7 +11,7 @@ class Url implements UriInterface, Stringable
 {
     use Macroable;
 
-    protected string $scheme = '';
+    protected Scheme $scheme;
 
     protected string $host = '';
 
@@ -27,10 +27,9 @@ class Url implements UriInterface, Stringable
 
     protected string $fragment = '';
 
-    public const VALID_SCHEMES = ['http', 'https', 'mailto', 'tel'];
-
     public function __construct()
     {
+        $this->scheme = new Scheme();
         $this->query = new QueryParameterBag();
     }
 
@@ -39,23 +38,33 @@ class Url implements UriInterface, Stringable
         return new static();
     }
 
-    public static function fromString(string $url): static
+    public static function fromString(string $url, array|null $allowedSchemes = null): static
     {
-        if (! $parts = parse_url($url)) {
-            throw InvalidArgument::invalidUrl($url);
+        $toUrl = new static();
+
+        if($allowedSchemes !== null) {
+            $toUrl = $toUrl->withAllowedSchemes($allowedSchemes);
         }
 
-        $url = new static();
-        $url->scheme = isset($parts['scheme']) ? $url->sanitizeScheme($parts['scheme']) : '';
-        $url->host = $parts['host'] ?? '';
-        $url->port = $parts['port'] ?? null;
-        $url->user = $parts['user'] ?? '';
-        $url->password = $parts['pass'] ?? null;
-        $url->path = $parts['path'] ?? '/';
-        $url->query = QueryParameterBag::fromString($parts['query'] ?? '');
-        $url->fragment = $parts['fragment'] ?? '';
+        return static::make($url, $toUrl);
+    }
 
-        return $url;
+    protected static function make(string $fromUrl, self $toUrl): static
+    {
+        if (! $parts = parse_url($fromUrl)) {
+            throw InvalidArgument::invalidUrl($fromUrl);
+        }
+
+        $toUrl->scheme->setScheme(isset($parts['scheme']) ? $parts['scheme'] : '');
+        $toUrl->host = $parts['host'] ?? '';
+        $toUrl->port = $parts['port'] ?? null;
+        $toUrl->user = $parts['user'] ?? '';
+        $toUrl->password = $parts['pass'] ?? null;
+        $toUrl->path = $parts['path'] ?? '/';
+        $toUrl->query = QueryParameterBag::fromString($parts['query'] ?? '');
+        $toUrl->fragment = $parts['fragment'] ?? '';
+
+        return $toUrl;
     }
 
     public function getScheme(): string
@@ -217,20 +226,18 @@ class Url implements UriInterface, Stringable
     {
         $url = clone $this;
 
-        $url->scheme = $this->sanitizeScheme($scheme);
+        $url->scheme->setScheme($scheme);
 
         return $url;
     }
 
-    protected function sanitizeScheme(string $scheme): string
+    public function withAllowedSchemes(array $schemes): static
     {
-        $scheme = strtolower($scheme);
+        $url = clone $this;
 
-        if (! in_array($scheme, static::VALID_SCHEMES)) {
-            throw InvalidArgument::invalidScheme($scheme);
-        }
+        $url->scheme->setAllowedSchemes($schemes);
 
-        return $scheme;
+        return $url;
     }
 
     public function withUserInfo($user, $password = null): static
@@ -361,5 +368,6 @@ class Url implements UriInterface, Stringable
     public function __clone()
     {
         $this->query = clone $this->query;
+        $this->scheme = clone $this->scheme;
     }
 }

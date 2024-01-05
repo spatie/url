@@ -6,7 +6,19 @@
 
 A simple package to deal with URLs in your applications.
 
-Retrieve parts of the URL:
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require spatie/url
+```
+
+## Usage
+
+### Parse and transform a URL
+
+Retrieve any part of the URL:
 
 ```php
 use Spatie\Url\Url;
@@ -18,7 +30,10 @@ echo $url->getHost(); // 'spatie.be'
 echo $url->getPath(); // '/opensource'
 ```
 
-Transform any part of the URL (the `Url` class is immutable):
+Transform any part of the URL:
+
+> **Note**
+> the `Url` class is immutable.
 
 ```php
 $url = Url::fromString('https://spatie.be/opensource');
@@ -26,6 +41,37 @@ $url = Url::fromString('https://spatie.be/opensource');
 echo $url->withHost('github.com')->withPath('spatie');
 // 'https://github.com/spatie'
 ```
+
+### Scheme
+
+Transform the URL scheme.
+```php
+$url = Url::fromString('http://spatie.be/opensource');
+
+echo $url->withScheme('https'); // 'https://spatie.be/opensource'
+```
+
+Use a list of allowed schemes.
+
+> **Note**
+> each scheme in the list will be sanitized
+
+```php
+$url = Url::fromString('https://spatie.be/opensource');
+
+echo $url->withAllowedSchemes(['wss'])->withScheme('wss'); // 'wss://spatie.be/opensource'
+```
+
+or pass the list directly to `fromString` as the URL's scheme will be sanitized and validated immediately:
+
+```php
+$url = Url::fromString('https://spatie.be/opensource', [...SchemeValidator::VALID_SCHEMES, 'wss']);
+
+echo $url->withScheme('wss'); // 'wss://spatie.be/opensource'
+```
+
+
+### Query parameters
 
 Retrieve and transform query parameters:
 
@@ -46,6 +92,8 @@ echo $url->withoutQueryParameter('utm_campaign'); // 'https://spatie.be/opensour
 echo $url->withQueryParameters(['utm_campaign' => 'packages']); // 'https://spatie.be/opensource?utm_source=github&utm_campaign=packages'
 ```
 
+### Path segments
+
 Retrieve path segments:
 
 ```php
@@ -54,6 +102,8 @@ $url = Url::fromString('https://spatie.be/opensource/laravel');
 echo $url->getSegment(1); // 'opensource'
 echo $url->getSegment(2); // 'laravel'
 ```
+
+### PSR-7 `UriInterface`
 
 Implements PSR-7's `UriInterface` interface:
 
@@ -65,6 +115,12 @@ The [`league/uri`](https://github.com/thephpleague/uri) is a more powerful packa
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
+## Testing
+
+```bash
+composer test
+```
+
 ## Support us
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/url.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/url)
@@ -72,28 +128,6 @@ Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
 We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
-
-## Installation
-
-You can install the package via composer:
-
-```bash
-composer require spatie/url
-```
-
-## Usage
-
-Usage is pretty straightforward. Check out the code examples at the top of this readme.
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
-## Testing
-
-```bash
-composer test
-```
 
 ## Changelog
 
