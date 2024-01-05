@@ -1,8 +1,8 @@
 <?php
 
 use Spatie\Url\Exceptions\InvalidArgument;
-use Spatie\Url\Url;
 use Spatie\Url\SchemeValidator;
+use Spatie\Url\Url;
 
 it('can build a url with a host', function () {
     $url = Url::create()->withHost('spatie.be');

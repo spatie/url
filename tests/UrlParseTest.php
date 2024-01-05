@@ -1,8 +1,8 @@
 <?php
 
 use Spatie\Url\Exceptions\InvalidArgument;
-use Spatie\Url\Url;
 use Spatie\Url\SchemeValidator;
+use Spatie\Url\Url;
 
 it('can parse a scheme', function () {
     $url = Url::fromString('https://spatie.be');

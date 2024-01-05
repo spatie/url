@@ -51,7 +51,7 @@ class SchemeValidator extends BaseValidator
     public function setAllowedSchemes(array $allowedSchemes): void
     {
         $this->allowedSchemes = array_map(
-            fn($scheme) => static::sanitizeScheme($scheme),
+            fn ($scheme) => static::sanitizeScheme($scheme),
             $allowedSchemes
         );
     }

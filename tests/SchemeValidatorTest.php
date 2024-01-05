@@ -1,7 +1,7 @@
 <?php
 
-use Spatie\Url\SchemeValidator;
 use Spatie\Url\Exceptions\InvalidArgument;
+use Spatie\Url\SchemeValidator;
 
 it('can be instantiated', function () {
     $schemeValidator = new SchemeValidator();

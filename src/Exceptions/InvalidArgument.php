@@ -8,7 +8,7 @@ class InvalidArgument extends InvalidArgumentException
 {
     public static function invalidScheme(string $scheme, array $allowedSchemes): static
     {
-        $schemes = implode(', ', array_map(fn($scheme) => "`{$scheme}`", $allowedSchemes));
+        $schemes = implode(', ', array_map(fn ($scheme) => "`{$scheme}`", $allowedSchemes));
 
         return new static("The scheme `{$scheme}` isn't valid. It should be either {$schemes}.");
     }

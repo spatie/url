@@ -1,7 +1,7 @@
 <?php
 
-use Spatie\Url\Url;
 use Spatie\Url\Exceptions\InvalidArgument;
+use Spatie\Url\Url;
 
 it('always allows an empty scheme against default scheme validator', function () {
 
