@@ -2,6 +2,18 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.3.0 - 2024-01-05
+
+### What's Changed
+
+* Add configurable and validatable schemes. by @glenncoppens in https://github.com/spatie/url/pull/67
+
+### New Contributors
+
+* @glenncoppens made their first contribution in https://github.com/spatie/url/pull/67
+
+**Full Changelog**: https://github.com/spatie/url/compare/2.2.1...2.3.0
+
 ## 2.2.1 - 2023-04-27
 
 ### What's Changed
