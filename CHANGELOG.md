@@ -2,6 +2,18 @@
 
 All Notable changes to `url` will be documented in this file
 
+## 2.4.0 - 2024-03-08
+
+### What's Changed
+
+* Please update spatie/macroable by @aungmyatmoe11 in https://github.com/spatie/url/pull/68
+
+### New Contributors
+
+* @aungmyatmoe11 made their first contribution in https://github.com/spatie/url/pull/68
+
+**Full Changelog**: https://github.com/spatie/url/compare/2.3.0...2.4.0
+
 ## 2.3.0 - 2024-01-05
 
 ### What's Changed
