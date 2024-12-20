@@ -42,7 +42,7 @@ class Url implements UriInterface, Stringable
     {
         $toUrl = new static();
 
-        if($allowedSchemes !== null) {
+        if ($allowedSchemes !== null) {
             $toUrl = $toUrl->withAllowedSchemes($allowedSchemes);
         }
 
