@@ -6,6 +6,12 @@ use InvalidArgumentException;
 
 class InvalidArgument extends InvalidArgumentException
 {
+    /**
+     * @param string $scheme
+     * @param array  $allowedSchemes
+     *
+     * @return static
+     */
     public static function invalidScheme(string $scheme, array $allowedSchemes): static
     {
         $schemes = implode(', ', array_map(fn ($scheme) => "`{$scheme}`", $allowedSchemes));
@@ -13,11 +19,19 @@ class InvalidArgument extends InvalidArgumentException
         return new static("The scheme `{$scheme}` isn't valid. It should be either {$schemes}.");
     }
 
+    /**
+     * @param string $url
+     *
+     * @return static
+     */
     public static function invalidUrl(string $url): static
     {
         return new static("The string `{$url}` is no valid url.");
     }
 
+    /**
+     * @return static
+     */
     public static function segmentZeroDoesNotExist(): static
     {
         return new static("Segment 0 doesn't exist. Segments can be retrieved by using 1-based index or a negative index.");

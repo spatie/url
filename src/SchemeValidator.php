@@ -8,8 +8,14 @@ class SchemeValidator extends BaseValidator
 {
     public const VALID_SCHEMES = ['http', 'https', 'mailto', 'tel'];
 
+    /**
+     * @var string|null
+     */
     private string|null $scheme;
 
+    /**
+     * @param array|null $allowedSchemes
+     */
     public function __construct(
         private array|null $allowedSchemes = null
     ) {
@@ -17,6 +23,11 @@ class SchemeValidator extends BaseValidator
         $this->allowedSchemes = $allowedSchemes ?? self::VALID_SCHEMES;
     }
 
+    /**
+     * @throws InvalidArgument
+     *
+     * @return void
+     */
     public function validate(): void
     {
         // '' aka "no scheme" must always be valid
@@ -27,27 +38,48 @@ class SchemeValidator extends BaseValidator
         }
     }
 
+    /**
+     * @param string $scheme
+     *
+     * @return string
+     */
     public static function sanitizeScheme(string $scheme): string
     {
         // TODO: regex to allow correct format according to https://datatracker.ietf.org/doc/html/rfc3986#section-3.1
         return strtolower($scheme);
     }
 
+    /**
+     * @return string|null
+     */
     public function getScheme(): string|null
     {
         return $this->scheme;
     }
 
+    /**
+     * @param string $scheme
+     *
+     * @return void
+     */
     public function setScheme(string $scheme): void
     {
         $this->scheme = $scheme;
     }
 
+    /**
+     * @return array|null
+     */
     public function getAllowedSchemes(): array|null
     {
         return $this->allowedSchemes;
     }
 
+    /**
+     * @param array $allowedSchemes
+     *
+     * @return void
+     */
     public function setAllowedSchemes(array $allowedSchemes): void
     {
         $this->allowedSchemes = array_map(
