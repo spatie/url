@@ -49,6 +49,14 @@ class Url implements UriInterface, Stringable
         return static::make($url, $toUrl);
     }
 
+    /**
+     * @param string $fromUrl
+     * @param Url    $toUrl
+     *
+     * @throws InvalidArgument
+     *
+     * @return static
+     */
     protected static function make(string $fromUrl, self $toUrl): static
     {
         if (! $parts = parse_url($fromUrl)) {
@@ -192,6 +200,14 @@ class Url implements UriInterface, Stringable
         return explode('/', trim($this->path, '/'));
     }
 
+    /**
+     * @param int        $index
+     * @param mixed|null $default
+     *
+     * @throws InvalidArgument
+     *
+     * @return mixed
+     */
     public function getSegment(int $index, mixed $default = null): mixed
     {
         $segments = $this->getSegments();

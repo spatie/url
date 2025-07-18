@@ -17,6 +17,11 @@ class SchemeValidator extends BaseValidator
         $this->allowedSchemes = $allowedSchemes ?? self::VALID_SCHEMES;
     }
 
+    /**
+     * @throws InvalidArgument
+     *
+     * @return void
+     */
     public function validate(): void
     {
         // '' aka "no scheme" must always be valid
